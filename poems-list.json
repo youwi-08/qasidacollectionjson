@@ -1,20 +1,16 @@
 [
   {
     "id": "1",
-    "title": "يا إمام الرسل",
-    "author": "Author Name",
-    "tags": ["faith", "guidance"]
+    "title": "يا إمام الرسل"
+    
   },
   {
     "id": "2",
-    "title": "قصيدة ثانية",
-    "author": "Another Author",
-    "tags": ["morning", "hope"]
+    "title": "قصيدة المحمدية"
   },
   {
     "id": "3",
-    "title": "قصيدة ثالثة",
-    "author": "Author Name",
-    "tags": ["nature", "reflection"]
+    "title": "قصيدة ثالثة"
+
   }
 ]
