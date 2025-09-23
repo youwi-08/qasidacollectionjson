@@ -1,6 +1,8 @@
 [
   { "id": "index", "title": "الرئسية", "file": "../index.html" },
   { "id": "1", "title": "يا إمام الرسل", "file": "poems/1.html" },
-  { "id": "2", "title": "قصيدة المحمدية", "file": "poems/2.html" },
-  { "id": "3", "title": "قصيدة ثالثة", "file": "testing.html" }
+  { "id": "2", "title": "القصيدة المحمديه", "file": "poems/2.html" },
+  { "id": "3", "title": "خير البرية", "file": "poems/3.html" }
+  { "id": "4", "title": "حب النبي والآل ديني", "file": "poems/4.html" }
+  { "id": "5", "title": "قصيدة ثالثة", "file": "testing.html" }
 ]
