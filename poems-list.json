@@ -7,5 +7,7 @@
   { "id": "5", "title": "أحمد يا حبيبي", "file": "poems/5.html" },
   { "id": "6", "title": "يا طيبة", "file": "poems/6.html"},
   { "id": "7", "title": "أخي أنت حر", "file": "poems/7.html"},
-  { "id": "6", "title": "قصيدة ثالثة", "file": "../testing.html" }
+  { "id": "8", "title": "نسمات هواك", "file": "poems/8.html"},
+  { "id": "9", "title": "يا إمام الرسل ", "file": "poems/9.html"},
+  { "id": "10", "title": "قصيدة ثالثة", "file": "../testing.html" }
 ]
