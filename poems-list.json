@@ -1,5 +1,5 @@
 [
-  { "id": "index", "title": "الرئسية", "file": "../index.html" },
+  { "id": "index", "title": "Home 🏡", "file": "../index.html" },
   { "id": "1", "title": "يا إمام الرسل", "file": "poems/1.html", "tags": ["Classical"] },
   { "id": "2", "title": "القصيدة المحمديه", "file": "poems/2.html", "tags": ["Classical"] },
   { "id": "3", "title": "خير البرية", "file": "poems/3.html" },
@@ -17,5 +17,5 @@
   { "id": "15", "title": "إلزم باب ربك", "file": "poems/15.html" },
   { "id": "16", "title": "على بلد المحبوب وديني", "file": "poems/16.html" },
   { "id": "17", "title": "إشرب شراب", "file": "poems/17.html", "tags": ["Shadhili"] },
-  { "id": "18", "title": "صلاواة الله تغشى", "file": "poems/18.html", "tags": ["Ba Alawi"] }
+  { "id": "18", "title": "صلاوات الله تغشى", "file": "poems/18.html", "tags": ["Ba Alawi"] }
 ]
