@@ -21,5 +21,7 @@
   { "id": "19", "title": "إشرب شراب", "file": "poems/19.html", "tags": ["Shadhili"] },
   { "id": "20", "title": "صلاوات الله تغشى", "file": "poems/20.html", "tags": ["Ba Alawi"] },
   { "id": "21", "title": "ربيع أقبل علينا", "file": "poems/21.html", "tags": ["Ba Alawi"] },
-  { "id": "22", "title": "تشوقت روحي", "file": "poems/22.html" }
+  { "id": "22", "title": "تشوقت روحي", "file": "poems/22.html" },
+  { "id": "23", "title": "ما لذة العيش إلا صحبة الفقرا", "file": "poems/23.html" },
+  { "id": "24", "title": "بحبك وبريدك", "file": "poems/24.html" }
 ]
