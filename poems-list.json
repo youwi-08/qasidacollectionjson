@@ -23,5 +23,8 @@
   { "id": "21", "title": "ربيع أقبل علينا", "file": "poems/21.html", "tags": ["Ba Alawi"] },
   { "id": "22", "title": "تشوقت روحي", "file": "poems/22.html" },
   { "id": "23", "title": "ما لذة العيش", "file": "poems/23.html" },
-  { "id": "24", "title": "بحبك وبريدك", "file": "poems/24.html" }
+  { "id": "24", "title": "بحبك وبريدك", "file": "poems/24.html" },
+  { "id": "25", "title": "وشلون أنام الليل", "file": "poems/25.html" },
+  { "id": "26", "title": "البحور الشاذلية", "file": "poems/26.html", "tags": ["Shadhili"] },
+  { "id": "27", "title": "صفه لي", "file": "poems/27.html" }
 ]
