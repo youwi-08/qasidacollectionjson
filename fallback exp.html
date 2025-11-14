@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>كتاب أصوات الإيمان</title>
+  <link rel="icon" type="image/png" href="/images/logo.ico" sizes="32x32">
+  <style>
+    body {
+      min-height: 100vh;
+      padding-top: 20px;
+      overflow-y: auto;
+      margin: 0;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      color: #000;
+      display: block;
+    }
+
+    .header-container, .main-container {
+      margin: 0 auto;
+    }
+
+    .left-column, .right-column {
+      background-color: #fff;
+      color: #000000;
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .left-column {
+      flex: 2;
+    }
+
+    .right-column {
+      flex: 1;
+    }
+    .right-column .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 14px 24px;
+      border-radius: 8px;
+      background-color: #256328;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: background 0.2s, color 0.3s;
+      height: 36px;
+      box-sizing: border-box;
+      font-family: "Al Bayan", "Al Tarikh", sans-serif;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .right-column .button:hover {
+      background-color: #254563;
+    }
+    .header-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto 20px auto;
+      text-align: center;
+    }
+    .header-container img {
+      max-height: 120px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+    .header-container h1 {
+      font-family: "Diwan Thuluth", serif;
+      color: #C99F35;
+    }
+
+    .button-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+      grid-auto-rows: 1fr; /* ensures all grid items have equal height */
+    }
+    .button {
+      display: inline-block;
+      padding: 8px 14px;
+      background-color: #256328;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+      transition: background 0.2s, color 0.3s;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Al Bayan", "Al Tarikh", sans-serif;
+    }
+
+    #darkModeToggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-size: 1.3rem;
+    }
+    .button:hover,
+    .poem-button:hover {
+      background-color: #254563;
+    }
+
+    .poem-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 14px 24px;
+      border-radius: 8px;
+      background-color: #256328;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: background 0.2s, color 0.3s;
+      height: 100%; /* take full height of grid row */
+      box-sizing: border-box;
+      font-family: "Al Bayan", "Al Tarikh", sans-serif;
+    }
+
+    .filter-button {
+      display: inline-block;
+      padding: 8px 14px;
+      background-color: #254563;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+      transition: background 0.2s, color 0.3s;
+      border-radius: 12px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Al Bayan", "Al Tarikh", sans-serif;
+    }
+    .filter-button:hover {
+      background-color: #254563de;
+    }
+
+    .dark-mode .button,
+    .dark-mode .poem-button {
+      background-color: #53A2A9;
+    }
+    .dark-mode .button:hover,
+    .dark-mode .poem-button:hover {
+      background-color: #3d8e99;
+    }
+    .dark-mode .filter-button {
+      background-color: #407253;
+    }
+    .dark-mode .filter-button:hover {
+      background-color: #355f47;
+    }
+
+    .dark-mode body {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    .dark-mode .left-column, .dark-mode .right-column {
+      background: #1e1e1e;
+      box-shadow: 0 4px 10px rgba(255,255,255,0.1);
+    }
+    .dark-mode h1 {
+      color: #53A2A9;
+    }
+    .dark-mode p {
+      color: #b0b0b0;
+    }
+        @font-face {
+      font-family: "Diwan Thuluth";
+      src: url("fonts/DiwanThuluth.ttf") format("truetype");
+    }
+    h1 {
+      font-family: "Diwan Thuluth", serif;
+      color: #C99F35;
+    }
+        #searchInput {
+      width: 100%;
+      max-width: 600px;
+      height: 30px;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      text-align: left;
+      font-size: 0.8rem;
+      background: #fff;
+      color: #000;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+      box-sizing: border-box;
+    }
+
+    html.dark-mode #searchInput {
+      background: #333;
+      color: #e0e0e0;
+      border: 1px solid #555;
+    }
+    #filter-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .main-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 20px;
+      box-sizing: border-box;
+    }
+    .dark-mode .right-column h2 {
+      color: #ffffff;
+    }
+    #roomCodeInput {
+      width: 100%;
+      max-width: 250px;
+      height: 30px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+      background: #fff;
+      color: #000;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .dark-mode #roomCodeInput {
+      background: #333;
+      color: #e0e0e0;
+      border: 1px solid #555;
+    }
+    #createRoomOptions input {
+      width: 100%;
+      max-width: 250px;
+      height: 30px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+      background: #fff;
+      color: #000;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .dark-mode #createRoomOptions input {
+      background: #333;
+      color: #e0e0e0;
+      border: 1px solid #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-container">
+    <img src="images/logo.png" alt="Logo">
+    <h1>كـــتاب   أصوات   الإيمان</h1>
+  </div>
+  <div class="main-container">
+    <div class="left-column">
+      <input type="text" id="searchInput" placeholder="🔍 Search by poem name or tag">
+      <div id="filter-controls">
+        <div id="tag-filter-container" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start;"></div>
+        <button id="darkModeToggle" class="button">🌙</button>
+      </div>
+      <div class="button-container"></div>
+    </div>
+    <div class="right-column">
+      <h2>Join or Create a Room</h2>
+      <input type="text" id="roomCodeInput" placeholder="🔠 Enter Room Code">
+      <button id="joinRoomBtn" class="button">Join Room</button>
+      <button id="createRoomBtn" class="button">Create Room </button>
+      <div id="createRoomOptions" style="display: none;">
+      </div>
+      <div id="currentRoomInfo"></div>
+    </div>
+  </div>
+  <script type="module">
+
+    const toggleButton = document.getElementById('darkModeToggle');
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+    function setDarkMode(enabled) {
+      if (enabled) {
+        document.documentElement.classList.add('dark-mode');
+      } else {
+        document.documentElement.classList.remove('dark-mode');
+      }
+    }
+
+    // Initialize based on system preference
+    setDarkMode(prefersDarkScheme.matches);
+
+    // Listen for system preference changes
+    prefersDarkScheme.addEventListener('change', e => {
+      setDarkMode(e.matches);
+    });
+
+    // Toggle button click handler
+    toggleButton.addEventListener('click', () => {
+      const isDarkMode = document.documentElement.classList.contains('dark-mode');
+      setDarkMode(!isDarkMode);
+    });
+
+    // Searchable poems list with filtering
+    let poems = [];
+    let filteredPoems = [];
+    let currentTag = null;
+
+    const container = document.querySelector('.button-container');
+    const tagFilterContainer = document.getElementById('tag-filter-container');
+    const searchInput = document.getElementById('searchInput');
+
+    function displayPoems(poemsArray) {
+      container.innerHTML = '';
+      let poemsToDisplay = poemsArray;
+      if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname === '') {
+        poemsToDisplay = poemsArray.filter(poem => poem.id !== 'index');
+      }
+      poemsToDisplay.forEach(poem => {
+        const a = document.createElement('a');
+        a.className = 'poem-button';
+        a.href = poem.file;
+        a.textContent = poem.title;
+        container.appendChild(a);
+      });
+    }
+
+    function getUniqueTags(poems) {
+      const tags = new Set();
+      poems.forEach(poem => {
+        if (Array.isArray(poem.tags)) {
+          poem.tags.forEach(tag => tags.add(tag));
+        }
+      });
+      return Array.from(tags).sort((a, b) => a.localeCompare(b));
+    }
+
+    function renderTagButtons(poems) {
+      tagFilterContainer.innerHTML = '';
+      // "All" button
+      const allBtn = document.createElement('button');
+      allBtn.textContent = 'All';
+      allBtn.className = 'filter-button';
+      if (!currentTag) allBtn.style.backgroundColor = '#C99F35';
+      allBtn.addEventListener('click', () => {
+        currentTag = null;
+        highlightTagButton(null);
+        filterAndDisplay();
+      });
+      tagFilterContainer.appendChild(allBtn);
+
+      // Tag buttons
+      getUniqueTags(poems).forEach(tag => {
+        const btn = document.createElement('button');
+        btn.textContent = tag;
+        btn.className = 'filter-button';
+        btn.setAttribute('data-tag', tag);
+        if (currentTag === tag) btn.style.backgroundColor = '#C99F35';
+        btn.addEventListener('click', () => {
+          currentTag = tag;
+          highlightTagButton(tag);
+          filterAndDisplay();
+        });
+        tagFilterContainer.appendChild(btn);
+      });
+    }
+
+    function highlightTagButton(selectedTag) {
+      // Remove highlight from all
+      tagFilterContainer.querySelectorAll('.filter-button').forEach(btn => {
+        btn.style.backgroundColor = '';
+      });
+      // Highlight selected
+      if (selectedTag === null) {
+        const allBtn = tagFilterContainer.querySelector('.filter-button');
+        if (allBtn) allBtn.style.backgroundColor = '#C99F35';
+      } else {
+        const btn = tagFilterContainer.querySelector(`.filter-button[data-tag="${CSS.escape(selectedTag)}"]`);
+        if (btn) btn.style.backgroundColor = '#C99F35';
+      }
+    }
+
+    function filterAndDisplay() {
+      let result = poems;
+      const searchTerm = searchInput.value.trim().toLowerCase();
+      if (currentTag) {
+        result = result.filter(poem =>
+          Array.isArray(poem.tags) && poem.tags.includes(currentTag)
+        );
+      }
+      if (searchTerm) {
+        result = result.filter(poem => {
+          if (poem.title && poem.title.toLowerCase().includes(searchTerm)) return true;
+          if (Array.isArray(poem.tags) && poem.tags.some(tag => tag.toLowerCase().includes(searchTerm))) return true;
+          return false;
+        });
+      }
+      displayPoems(result);
+    }
+
+    // Fetch poems list
+    fetch('https://raw.githubusercontent.com/youwi-08/qasidacollectionjson/main/poems-list.json')
+      .then(response => response.json())
+      .then(data => {
+        poems = data;
+        renderTagButtons(poems);
+        displayPoems(poems);
+      })
+      .catch(error => {
+        console.error('Error fetching poems list:', error);
+      });
+
+    // Search functionality
+    searchInput.addEventListener('input', () => {
+      filterAndDisplay();
+    });
+
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
+    // Initialize Firebase
+    const firebaseApp = initializeApp({
+      apiKey: "AIzaSyANZ0TUYv-pVhU0ZbD7MTT5Ugm2IjCgeXE",
+      authDomain: "qasidacollection2.firebaseapp.com",
+      projectId: "qasidacollection2",
+      storageBucket: "qasidacollection2.firebasestorage.app",
+      messagingSenderId: "238399206269",
+      appId: "1:238399206269:web:eb532025660d83f98c5214",
+      measurementId: "G-ZWNCJLB60F"
+    });
+
+    const db = getFirestore(firebaseApp);
+
+    const createRoomBtn = document.getElementById('createRoomBtn');
+    const createRoomOptions = document.getElementById('createRoomOptions');
+    const currentRoomInfo = document.getElementById('currentRoomInfo');
+    let createRoomVisible = false;
+
+    // Function to generate random alphanumeric code
+    function generateRoomCode(length = 6) {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      return Array.from({ length }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
+    }
+
+    createRoomBtn.addEventListener('click', async () => {
+      const roomCode = generateRoomCode();
+
+      try {
+        // Save room code to Firestore under 'rooms' collection
+        await setDoc(doc(db, "rooms", roomCode), {
+          createdAt: new Date().toISOString()
+        });
+        currentRoomInfo.textContent = `Created Room Code: ${roomCode}`;
+      } catch (error) {
+        console.error('Error creating room:', error);
+        currentRoomInfo.textContent = 'Failed to create room. Check console for details.';
+      }
+
+      // Toggle options display
+      createRoomOptions.style.display = createRoomVisible ? 'none' : 'block';
+      createRoomVisible = !createRoomVisible;
+    });
+
+  </script>
+</body></html>

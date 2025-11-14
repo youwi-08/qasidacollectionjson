@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>Room</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone|Material+Icons" rel="stylesheet">
+  <style>
+    .material-icons {
+      font-size: 20px;
+      vertical-align: middle;
+      color: inherit;
+    }
+    html[data-theme="dark"] .material-icons {
+      color: #fff;
+    }
+    html[data-theme="light"] .material-icons {
+      color: #000;
+    }
+    :root {
+      --background-dark: #1e1e1e;
+      --background-light: #f5f5f5;
+      --text-dark: #f5f5f5;
+      --text-light: #1e1e1e;
+      --container-bg-dark: #2a2a2a;
+      --container-bg-light: #ffffff;
+      --border-dark: #444;
+      --border-light: #ccc;
+      --box-shadow-dark: rgba(0,0,0,0.7);
+      --box-shadow-light: rgba(0,0,0,0.1);
+      --poem-bg-dark: #333;
+      --poem-bg-light: #eee;
+      --poem-text-dark: #eee;
+      --poem-text-light: #eee;
+      --color-muted-dark: #ccc;
+      --color-muted-light: #666;
+    }
+
+    html[data-theme="dark"] {
+      background: var(--background-dark);
+      color: var(--text-dark);
+    }
+    html[data-theme="dark"] body {
+      background: var(--background-dark);
+      color: var(--text-dark);
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    html[data-theme="dark"] .room-access-code-container {
+      background: var(--container-bg-dark);
+      color: var(--text-dark);
+      border-bottom: 1px solid var(--border-dark);
+      box-shadow: 0 2px 6px var(--box-shadow-dark);
+    }
+    html[data-theme="dark"] .left-col {
+      background: transparent;
+      border-right: 1px solid var(--border-dark);
+      box-shadow: inset 1px 0 0 var(--border-dark);
+    }
+    html[data-theme="dark"] .right-col {
+      background: transparent;
+    }
+    html[data-theme="dark"] .reading-list-container, html[data-theme="dark"] .all-poems-container, html[data-theme="dark"] .current-poem-container {
+      background: var(--container-bg-dark);
+      border: none;
+      box-shadow: none;
+      color: var(--color-muted-dark);
+    }
+    html[data-theme="dark"] .poem-item {
+      background-color: #53A2A9;
+      border: 1px solid var(--border-light);
+      color: var(--poem-text-dark);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    html[data-theme="light"] {
+      background: var(--background-light);
+      color: var(--text-light);
+    }
+    html[data-theme="light"] body {
+      background: var(--background-light);
+      color: var(--text-light);
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    html[data-theme="light"] .room-access-code-container {
+      background: var(--container-bg-light);
+      color: var(--text-light);
+      border-bottom: 1px solid var(--border-light);
+      box-shadow: 0 2px 6px var(--box-shadow-light);
+    }
+    html[data-theme="light"] .left-col {
+      background: transparent;
+      border-right: 1px solid var(--border-light);
+      box-shadow: inset 1px 0 0 var(--border-light);
+    }
+    html[data-theme="light"] .right-col {
+      background: transparent;
+    }
+    html[data-theme="light"] .reading-list-container, html[data-theme="light"] .all-poems-container, html[data-theme="light"] .current-poem-container {
+      background: var(--container-bg-light);
+      border: none;
+      box-shadow: none;
+      color: var(--color-muted-light);
+    }
+    html[data-theme="light"] .poem-item {
+      background-color: #256328;
+      border: 1px solid var(--border-dark);
+      color: var(--poem-text-light);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow-y: auto;
+      height: auto;
+      min-height: 100vh;
+    }
+    .room-access-code-container {
+      width: 100%;
+      padding: 24px 0;
+      text-align: center;
+      font-size: 2em;
+      letter-spacing: 2px;
+      margin-bottom: 0;
+      position: relative;
+    }
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      gap: 6px;
+      justify-content: center;
+    }
+    .theme-toggle input[type="checkbox"] {
+      width: 40px;
+      height: 20px;
+      appearance: none;
+      background: #3d8e99;
+      outline: none;
+      border-radius: 20px;
+      position: relative;
+      transition: background 0.3s;
+      cursor: pointer;
+      margin: 0;
+    }
+    .theme-toggle input[type="checkbox"]:checked {
+      background: #256328;
+    }
+    .theme-toggle input[type="checkbox"]::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      top: 1px;
+      left: 1px;
+      background: white;
+      transition: 0.3s;
+    }
+    .theme-toggle input[type="checkbox"]:checked::before {
+      left: 21px;
+    }
+    .theme-toggle label {
+      margin-left: 8px;
+      font-size: 0.9em;
+      color: inherit;
+      user-select: none;
+    }
+    .main-layout {
+      display: flex;
+      flex-direction: row;
+      height: auto;
+      min-height: 100vh;
+      overflow: visible;
+      gap: 0;
+    }
+    .left-col, .right-col {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      min-height: auto;
+      overflow-y: visible;
+      overflow-x: hidden;
+    }
+    .left-col {
+      width: 35%;
+      min-width: 270px;
+      height: auto;
+      min-height: auto;
+      overflow-y: visible;
+      overflow-x: hidden;
+    }
+    .right-col {
+      width: 65%;
+      min-width: 320px;
+      height: auto;
+      min-height: auto;
+      overflow-y: visible;
+      overflow-x: hidden;
+    }
+    .reading-list-container, .all-poems-container, .current-poem-container {
+      margin: 16px;
+      border-radius: 8px;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      cursor: default;
+      flex-direction: column;
+    }
+    .reading-list-container {
+      margin-bottom: 8px;
+      overflow: auto; /* allow internal scrolling when content is large */
+      width: 95%;
+      align-items: stretch;
+      justify-content: flex-start;
+      height: 320px; /* starting height user can drag to change */
+      min-height: 120px; /* prevent collapsing too small */
+      max-height: calc(100vh - 180px); /* reasonable upper bound */
+      transition: height 0.12s ease;
+    }
+    .all-poems-container {
+      flex: 1 1 auto; /* fill remaining vertical space */
+      margin-top: 8px;
+      overflow: auto;
+      width: 95%;
+      align-items: stretch;
+      justify-content: flex-start;
+      height: auto;
+      min-height: 120px;
+    }
+    .resizer {
+      height: 8px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.08), rgba(0,0,0,0.18));
+      cursor: row-resize;
+      margin: 0 16px;
+      border-radius: 4px;
+    }
+    .current-poem-container {
+      flex: 1 1 auto;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      height: auto;
+      min-height: 300px;
+      overflow: visible;
+    }
+    .current-poem-container iframe {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      height: auto;
+      min-height: 300px;
+    }
+    .poem-item {
+      padding: 8px 12px;
+      margin: 4px 8px;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: default;
+      width: 97%;
+      box-sizing: border-box;
+    }
+
+    /* MOVED poem-placeholder CSS HERE */
+    .poem-placeholder {
+      margin: 24px 16px 0 16px;
+      padding: 32px 24px;
+      border-radius: 8px;
+      border: 1px dashed var(--border-dark);
+      background: var(--container-bg-dark);
+      color: var(--color-muted-dark);
+      text-align: center;
+      font-size: 1.2em;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+      display: block;
+      align-self: stretch;
+    }
+
+    html[data-theme="light"] .poem-placeholder {
+      border: 1px dashed var(--border-light);
+      background: var(--container-bg-light);
+      color: var(--color-muted-light);
+    }
+
+    @media (max-width: 900px) {
+      .main-layout {
+        flex-direction: column;
+      }
+      .left-col, .right-col {
+        width: 100%;
+        min-width: 0;
+        border-right: none;
+        box-shadow: none;
+      }
+    }
+  </style>
+<body>
+  <div class="room-access-code-container">
+    Room <span id="room-code"></span>
+    <span style="position:absolute; right: 24px; top: 24px;">
+      <span class="theme-toggle" id="theme-toggle">
+        <span class="material-icons">dark_mode</span>
+        <input type="checkbox" id="theme-switch" aria-label="Toggle theme">
+        <span class="material-icons">light_mode</span>
+      </span>
+    </span>
+  </div>
+  <div class="main-layout" id="main-layout">
+    <div class="left-col" id="left-col" style="min-width:220px;">
+      <div class="reading-list-container" id="reading-list-container">
+        <div style="width:100%;text-align:left;font-weight:bold;margin-bottom:6px;">Your Reading List</div>
+        <div class="all-poems-container" id="reading-list">
+          <!-- Poem items will be populated here -->
+        </div>
+      </div>
+      <div class="resizer" id="resizer"></div>
+    </div>
+    <div class="right-col" id="right-col">
+      <div class="current-poem-container" id="current-poem-container">
+        <div class="poem-placeholder" id="poem-placeholder">
+          Select a poem from the reading list to read here.
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    // Firebase imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyANZ0TUYv-pVhU0ZbD7MTT5Ugm2IjCgeXE",
+      authDomain: "qasidacollection2.firebaseapp.com",
+      projectId: "qasidacollection2",
+      storageBucket: "qasidacollection2.appspot.com",
+      messagingSenderId: "238399206269",
+      appId: "1:238399206269:web:eb532025660d83f98c5214",
+      measurementId: "G-ZWNCJLB60F"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    function getRoomCode() {
+      const params = new URLSearchParams(window.location.search);
+      const room = params.get('room');
+      const codeElem = document.getElementById('room-code');
+      if (codeElem) {
+        codeElem.textContent = room ? room : "No room code provided";
+      }
+      return room;
+    }
+
+    async function fetchPoemsFromFirestore(roomCode) {
+      if (!roomCode) return [];
+      try {
+        const readingListRef = collection(db, "rooms", roomCode, "readingList");
+        const snapshot = await getDocs(readingListRef);
+        const poems = [];
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          if (data && data.title) {
+            let url = data.url || `https://experimentaldeploy.netlify.app/poems-admin/${encodeURIComponent(data.id)}?dark`;
+            if (url) {
+              poems.push({
+                id: doc.id,
+                title: data.title,
+                url: url
+              });
+            }
+          }
+        });
+        return poems;
+      } catch (err) {
+        console.error("Error fetching poems:", err);
+        return [];
+      }
+    }
+
+    function renderReadingList(poems) {
+      const readingList = document.getElementById('reading-list');
+      readingList.innerHTML = '';
+      if (!poems.length) {
+        const empty = document.createElement('div');
+        empty.className = 'poem-placeholder';
+        empty.textContent = "No poems in reading list.";
+        readingList.appendChild(empty);
+        return;
+      }
+      poems.forEach(poem => {
+        const item = document.createElement('div');
+        item.className = 'poem-item';
+        item.textContent = poem.title;
+        // Remove click handlers: viewers cannot select poems
+        readingList.appendChild(item);
+      });
+    }
+
+    // Helper to display a poem in the current-poem-container
+    function displayPoemInIframe(poem) {
+      const container = document.getElementById('current-poem-container');
+      container.innerHTML = '';
+      if (!poem || !poem.url) {
+        // Show placeholder if no valid poem
+        const placeholder = document.createElement('div');
+        placeholder.className = 'poem-placeholder';
+        placeholder.textContent = "No poem is currently selected.";
+        container.appendChild(placeholder);
+        return;
+      }
+      const iframe = document.createElement('iframe');
+      let url = poem.url.split('?')[0]; // Remove any previous ?dark
+      const theme = getTheme();
+      if (theme === 'dark') {
+        url += '?dark';
+      }
+      iframe.src = url;
+      iframe.style.width = '100%';
+      iframe.style.border = 'none';
+      iframe.style.borderRadius = '8px';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('id', 'poem-iframe');
+      const fallback = document.createElement('div');
+      fallback.className = 'poem-placeholder';
+      fallback.textContent = "Loading poem...";
+      container.appendChild(iframe);
+      container.appendChild(fallback);
+      fallback.style.display = 'block';
+      // Dynamically resize the iframe based on loaded content height (hybrid approach)
+      iframe.onload = () => {
+        fallback.style.display = 'none';
+        try {
+          iframe.contentWindow.postMessage({type: "set-theme", theme: getTheme()}, "*");
+        } catch (e) {}
+
+        // Try same-origin direct measurement first (fast if allowed)
+        setTimeout(() => {
+          try {
+            const iframeBody = iframe.contentWindow.document.body;
+            const h = iframeBody.scrollHeight;
+            if (h && h > 0) {
+              iframe.style.height = h + 'px';
+              try { iframe.contentWindow.document.documentElement.setAttribute('data-theme', getTheme()); } catch(e) {}
+              // --- Synchronize reading list height with iframe height
+              // (in case iframe height changes, keep reading-list-container in sync)
+              const readingListContainer = document.getElementById('reading-list-container');
+              const syncHeights = () => {
+                if (readingListContainer && iframe.style.height) {
+                  readingListContainer.style.height = iframe.style.height;
+                }
+              };
+              setInterval(syncHeights, 300);
+              // ---
+              return;
+            }
+          } catch (directErr) {
+            // direct access failed (likely cross-origin)
+          }
+
+          // Fallback: ask the iframe (via postMessage) to reply with its height repeatedly
+          let attempts = 0;
+          const maxAttempts = 25;
+          const poll = setInterval(() => {
+            attempts++;
+            try {
+              iframe.contentWindow.postMessage({ type: 'request-height' }, '*');
+            } catch (postErr) {}
+            if (attempts >= maxAttempts) {
+              clearInterval(poll);
+              // final fallback: fill most of the viewport
+              const containerRect = container.getBoundingClientRect();
+              const avail = Math.max(window.innerHeight - containerRect.top - 24, 400);
+              iframe.style.height = avail + 'px';
+            }
+          }, 200);
+
+          // store poll id on iframe so we can clear when height message arrives
+          iframe.__heightPoll = poll;
+        }, 100);
+
+        // --- Synchronize reading list height with iframe height (in fallback/async cases)
+        const readingListContainer = document.getElementById('reading-list-container');
+        const syncHeights = () => {
+          if (readingListContainer && iframe.style.height) {
+            readingListContainer.style.height = iframe.style.height;
+          }
+        };
+        setInterval(syncHeights, 300);
+        // ---
+      };
+    }
+
+    function adjustIframeHeight(iframe) {
+      window.addEventListener('message', function handler(e) {
+        if (e.source !== iframe.contentWindow) return;
+        if (e.data && e.data.type === 'poem-height') {
+          iframe.style.height = Math.max(e.data.height, 300) + 'px';
+        }
+      });
+      iframe.style.height = '400px';
+    }
+
+    function getTheme() {
+      const attrTheme = document.documentElement.getAttribute('data-theme');
+      if (attrTheme) return attrTheme;
+
+      // Follow device preference by default
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // Automatically follow device theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      const newTheme = e.matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      const toggle = document.getElementById('theme-switch');
+      toggle.checked = newTheme === 'light';
+      const iframe = document.getElementById('poem-iframe');
+      if (iframe) {
+        const baseUrl = iframe.src.split('?')[0];
+        iframe.src = newTheme === 'dark' ? `${baseUrl}?dark` : baseUrl;
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', async function() {
+      const toggle = document.getElementById('theme-switch');
+      toggle.checked = getTheme() === 'light';
+      toggle.addEventListener('change', function() {
+        const theme = toggle.checked ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+
+        const iframe = document.getElementById('poem-iframe');
+        if (iframe) {
+          const baseUrl = iframe.src.split('?')[0];
+          iframe.src = theme === 'dark' ? `${baseUrl}?dark` : baseUrl;
+
+          try {
+            iframe.contentWindow.postMessage({type: "set-theme", theme}, "*");
+          } catch (e) {}
+        }
+      });
+      const roomCode = getRoomCode();
+      let poems = [];
+      if (roomCode) {
+        poems = await fetchPoemsFromFirestore(roomCode);
+      }
+      renderReadingList(poems);
+
+      // Real-time Firestore listener for the reading list and current poem
+      if (roomCode) {
+        const readingListRef = collection(db, "rooms", roomCode, "readingList");
+        onSnapshot(readingListRef, (snapshot) => {
+          const allPoems = snapshot.docs
+            .map(docSnap => {
+              const data = docSnap.data();
+              return {
+                id: data.id || docSnap.id, // fallback to document ID if id field is missing
+                title: data.title,
+                url: data.url || `https://experimentaldeploy.netlify.app/poems-admin/${encodeURIComponent(data.id || docSnap.id)}?dark`,
+                isCurrent: data.isCurrent || false,
+                order: data.order || 0
+              };
+            })
+            .sort((a, b) => a.order - b.order);
+
+          // Update reading list dynamically
+          renderReadingList(allPoems);
+
+          // Update the displayed poem if one is current
+          const currentPoem = allPoems.find(p => p.isCurrent);
+          displayPoemInIframe(currentPoem || null);
+        });
+      } else {
+        displayPoemInIframe(null);
+      }
+    });
+
+    (function() {
+      const container = document.getElementById('reading-list-container');
+      const resizer = document.getElementById('resizer');
+      let isResizing = false;
+      let startY = 0;
+      let startHeight = 0;
+      resizer.addEventListener('mousedown', function(e) {
+        isResizing = true;
+        startY = e.clientY;
+        startHeight = parseInt(window.getComputedStyle(container).height, 10);
+        document.body.style.userSelect = 'none';
+      });
+      document.addEventListener('mousemove', function(e) {
+        if (!isResizing) return;
+        const dy = e.clientY - startY;
+        let newHeight = Math.max(120, startHeight + dy);
+        newHeight = Math.min(newHeight, window.innerHeight - 180);
+        container.style.height = newHeight + 'px';
+      });
+      document.addEventListener('mouseup', function() {
+        isResizing = false;
+        document.body.style.userSelect = '';
+      });
+    })();
+
+    window.addEventListener('message', function(e) {
+      if (!e || !e.data || !e.data.type) return;
+
+      // When iframe (child) sends its height
+      if (e.data.type === 'poem-height') {
+        const iframes = Array.from(document.querySelectorAll('iframe#poem-iframe, iframe[id^="poem-"]'));
+        let iframe = iframes.find(f => f.contentWindow === e.source) || document.getElementById('poem-iframe') || iframes[0];
+        if (iframe) {
+          const h = Number(e.data.height) || 0;
+          iframe.style.height = Math.max(h, 300) + 'px';
+          if (iframe.__heightPoll) {
+            clearInterval(iframe.__heightPoll);
+            delete iframe.__heightPoll;
+          }
+        }
+        return;
+      }
+
+      // Request from iframe to send theme (already implemented)
+      if (e.data.type === 'request-theme') {
+        const iframe = document.getElementById('poem-iframe') || document.querySelector('iframe[id^="poem-"]');
+        if (iframe && e.source === iframe.contentWindow) {
+          iframe.contentWindow.postMessage({type: "set-theme", theme: getTheme()}, "*");
+        }
+        return;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>Room Admin</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone|Material+Icons" rel="stylesheet">
+  <style>
+    .material-icons {
+      font-size: 20px;
+      vertical-align: middle;
+      color: inherit;
+    }
+    html[data-theme="dark"] .material-icons {
+      color: #fff;
+    }
+    html[data-theme="light"] .material-icons {
+      color: #000;
+    }
+    :root {
+      --background-dark: #1e1e1e;
+      --background-light: #f5f5f5;
+      --text-dark: #f5f5f5;
+      --text-light: #1e1e1e;
+      --container-bg-dark: #2a2a2a;
+      --container-bg-light: #ffffff;
+      --border-dark: #444;
+      --border-light: #ccc;
+      --box-shadow-dark: rgba(0,0,0,0.7);
+      --box-shadow-light: rgba(0,0,0,0.1);
+      --poem-bg-dark: #333;
+      --poem-bg-light: #eee;
+      --poem-text-dark: #eee;
+      --poem-text-light: #eee;
+      --color-muted-dark: #ccc;
+      --color-muted-light: #666;
+    }
+
+    html[data-theme="dark"] {
+      background: var(--background-dark);
+      color: var(--text-dark);
+    }
+    html[data-theme="dark"] body {
+      background: var(--background-dark);
+      color: var(--text-dark);
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    html[data-theme="dark"] .room-access-code-container {
+      background: var(--container-bg-dark);
+      color: var(--text-dark);
+      border-bottom: 1px solid var(--border-dark);
+      box-shadow: 0 2px 6px var(--box-shadow-dark);
+    }
+html[data-theme="dark"] .admin-left-col {
+      background: transparent;
+      border-right: 1px solid var(--border-dark);
+      box-shadow: inset 1px 0 0 var(--border-dark);
+    }
+    html[data-theme="dark"] .admin-right-col {
+      background: transparent;
+    }
+    html[data-theme="dark"] .reading-list-container, html[data-theme="dark"] .all-poems-container,
+    html[data-theme="dark"] .admin-actions-container, html[data-theme="dark"] .current-poem-container {
+      background: var(--container-bg-dark);
+      border: none;
+      box-shadow: none;
+      color: var(--color-muted-dark);
+    }
+    html[data-theme="dark"] .poem-item {
+      background-color: #53A2A9;
+      border: 1px solid var(--border-light);
+      color: var(--poem-text-dark);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    html[data-theme="light"] {
+      background: var(--background-light);
+      color: var(--text-light);
+    }
+    html[data-theme="light"] body {
+      background: var(--background-light);
+      color: var(--text-light);
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    html[data-theme="light"] .room-access-code-container {
+      background: var(--container-bg-light);
+      color: var(--text-light);
+      border-bottom: 1px solid var(--border-light);
+      box-shadow: 0 2px 6px var(--box-shadow-light);
+    }
+html[data-theme="light"] .admin-left-col {
+      background: transparent;
+      border-right: 1px solid var(--border-light);
+      box-shadow: inset 1px 0 0 var(--border-light);
+    }
+    html[data-theme="light"] .admin-right-col {
+      background: transparent;
+    }
+    html[data-theme="light"] .reading-list-container, html[data-theme="light"] .all-poems-container,
+    html[data-theme="light"] .admin-actions-container, html[data-theme="light"] .current-poem-container {
+      background: var(--container-bg-light);
+      border: none;
+      box-shadow: none;
+      color: var(--color-muted-light);
+    }
+    html[data-theme="light"] .poem-item {
+      background-color: #256328;
+      border: 1px solid var(--border-dark);
+      color: var(--poem-text-light);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow-y: auto;
+      height: auto;
+      min-height: 100vh;
+    }
+    .room-access-code-container {
+      width: 100%;
+      padding: 24px 0;
+      text-align: center;
+      font-size: 2em;
+      letter-spacing: 2px;
+      margin-bottom: 0;
+      position: relative;
+    }
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      gap: 6px;
+      justify-content: center;
+    }
+    .theme-toggle input[type="checkbox"] {
+      width: 40px;
+      height: 20px;
+      appearance: none;
+      background: #3d8e99;
+      outline: none;
+      border-radius: 20px;
+      position: relative;
+      transition: background 0.3s;
+      cursor: pointer;
+      margin: 0;
+    }
+    .theme-toggle input[type="checkbox"]:checked {
+      background: #256328;
+    }
+    .theme-toggle input[type="checkbox"]::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      top: 1px;
+      left: 1px;
+      background: white;
+      transition: 0.3s;
+    }
+    .theme-toggle input[type="checkbox"]:checked::before {
+      left: 21px;
+    }
+    .theme-toggle label {
+      margin-left: 8px;
+      font-size: 0.9em;
+      color: inherit;
+      user-select: none;
+    }
+    .admin-main-layout {
+      display: flex;
+      flex-direction: row;
+      height: auto;
+      min-height: 100vh;
+      overflow: visible;
+      gap: 0;
+    }
+    .admin-left-col, .admin-right-col {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      min-height: auto;
+      overflow-y: visible;
+      overflow-x: hidden;
+    }
+    .admin-left-col {
+      width: 35%;
+      min-width: 270px;
+      height: auto;
+      min-height: auto;
+      overflow-y: visible;
+      overflow-x: hidden;
+    }
+    .admin-right-col {
+      width: 65%;
+      min-width: 320px;
+      height: auto;
+      min-height: auto;
+      overflow-y: visible;
+      overflow-x: hidden;
+    }
+    .reading-list-container, .all-poems-container,
+    .admin-actions-container, .current-poem-container {
+      margin: 16px;
+      border-radius: 8px;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      cursor: default;
+      flex-direction: column;
+    }
+    .reading-list-container {
+      margin-bottom: 8px;
+      overflow: auto; /* allow internal scrolling when content is large */
+      width: 95%;
+      align-items: stretch;
+      justify-content: flex-start;
+      height: 320px; /* starting height user can drag to change */
+      min-height: 120px; /* prevent collapsing too small */
+      max-height: calc(100vh - 180px); /* reasonable upper bound */
+      transition: height 0.12s ease;
+    }
+    .all-poems-container {
+      flex: 1 1 auto; /* fill remaining vertical space */
+      margin-top: 8px;
+      overflow: auto;
+      width: 95%;
+      align-items: stretch;
+      justify-content: flex-start;
+      height: auto;
+      min-height: 120px;
+    }
+    .resizer {
+      height: 8px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.08), rgba(0,0,0,0.18));
+      cursor: row-resize;
+      margin: 0 16px;
+      border-radius: 4px;
+    }
+    .admin-actions-container {
+      flex: 0 1 auto;
+      margin-bottom: 8px;
+      min-height: 60px;
+      flex-basis: auto;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .admin-actions-container button {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: 16px;
+      background: #53A2A9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .admin-actions-container button .material-icons {
+      font-size: 22px;
+      margin: 0;
+    }
+    html[data-theme="light"] .admin-actions-container button {
+      background: #256328;
+    }
+
+
+    .current-poem-container {
+      flex: 1 1 auto;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      height: auto;
+      min-height: 300px;
+      overflow: visible;
+    }
+    .current-poem-container iframe {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      height: auto;
+      min-height: 300px;
+    }
+    .poem-item {
+      padding: 8px 12px;
+      margin: 4px 8px;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: default;
+      width: 97%;
+      box-sizing: border-box;
+    }
+
+    /* MOVED poem-placeholder CSS HERE */
+    .poem-placeholder {
+      margin: 24px 16px 0 16px;
+      padding: 32px 24px;
+      border-radius: 8px;
+      border: 1px dashed var(--border-dark);
+      background: var(--container-bg-dark);
+      color: var(--color-muted-dark);
+      text-align: center;
+      font-size: 1.2em;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+      display: block;
+      align-self: stretch;
+    }
+
+    html[data-theme="light"] .poem-placeholder {
+      border: 1px dashed var(--border-light);
+      background: var(--container-bg-light);
+      color: var(--color-muted-light);
+    }
+
+    @media (max-width: 900px) {
+      .admin-main-layout {
+        flex-direction: column;
+      }
+      .admin-left-col, .admin-right-col {
+        width: 100%;
+        min-width: 0;
+        border-right: none;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="room-access-code-container" id="roomAccessCode">
+    Room Code: <span id="roomCodeText">...</span>
+  </div>
+
+  <div class="admin-main-layout">
+    <div class="admin-left-col">
+      <div class="reading-list-container" id="readingListContainer">
+        <span>Reading List</span>
+      </div>
+      <div class="resizer" id="resizerBetweenLists"></div>
+      <div class="all-poems-container" id="allPoemsContainer">
+        <span>All Poems</span>
+      </div>
+    </div>
+
+    <div class="admin-right-col">
+      <div class="admin-actions-container">
+        <button id="themeToggleButton" class="theme-toggle" title="Toggle light/dark theme" style="position: static; transform: none; margin-top: 8px;">
+          <span id="themeToggleIcon" class="material-icons">dark_mode</span>
+        </button>
+      </div>
+      <div class="poem-placeholder">
+        Select a poem from the reading list to view it here.
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+    import { collection, addDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+    // Loads the reading list from Firestore and displays it in the readingListContainer
+    // Enable drag-and-drop for reading list
+    function enableDragAndDrop(container) {
+      let draggedItem = null;
+      let dragOverItem = null;
+      container.querySelectorAll('.poem-item').forEach(item => {
+        item.setAttribute('draggable', 'true');
+        item.addEventListener('dragstart', function(e) {
+          draggedItem = item;
+          item.classList.add('dragging');
+          e.dataTransfer.effectAllowed = 'move';
+        });
+        item.addEventListener('dragend', function() {
+          draggedItem = null;
+          item.classList.remove('dragging');
+        });
+        item.addEventListener('dragover', function(e) {
+          e.preventDefault();
+          dragOverItem = item;
+          item.classList.add('drag-over');
+        });
+        item.addEventListener('dragleave', function() {
+          item.classList.remove('drag-over');
+        });
+        item.addEventListener('drop', async function(e) {
+          e.preventDefault();
+          item.classList.remove('drag-over');
+          if (draggedItem && draggedItem !== item) {
+            const headerSpan = container.querySelector('span');
+            // Remove and re-insert draggedItem before/after drop target
+            let items = Array.from(container.querySelectorAll('.poem-item'));
+            const fromIdx = items.indexOf(draggedItem);
+            const toIdx = items.indexOf(item);
+            // Remove all .poem-item elements
+            items.forEach(el => el.remove());
+            // Reorder the array
+            const moved = items.splice(fromIdx, 1)[0];
+            items.splice(toIdx, 0, moved);
+            // Re-insert in new order
+            items.forEach((el, idx) => {
+              if (headerSpan && headerSpan.nextSibling) {
+                container.insertBefore(el, headerSpan.nextSibling);
+              } else {
+                container.appendChild(el);
+              }
+            });
+            // Update Firestore positions
+            for (let i = 0; i < items.length; ++i) {
+              const docId = items[i].getAttribute('data-doc-id');
+              if (docId) {
+                try {
+                  await window.firebaseUpdateDocPosition(roomCode, docId, i);
+                } catch (err) {
+                  console.error("Error updating poem position:", err);
+                }
+              }
+            }
+          }
+        });
+      });
+    }
+
+    // Helper for updating position field in Firestore
+    window.firebaseUpdateDocPosition = async function(roomCode, docId, position) {
+      // Use updateDoc to only update the position field
+      const { updateDoc, doc: fdoc } = await import('https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js');
+      await updateDoc(fdoc(db, "rooms", roomCode, "readingList", docId), {
+        position: position
+      });
+    };
+
+    async function loadReadingList() {
+      const readingListContainer = document.getElementById('readingListContainer');
+      // Keep only the header span
+      const headerSpan = readingListContainer.querySelector('span');
+      readingListContainer.innerHTML = '';
+      if (headerSpan) {
+        readingListContainer.appendChild(headerSpan);
+      }
+      if (!roomCode) return;
+      try {
+        const readingListCol = collection(db, "rooms", roomCode, "readingList");
+        const snapshot = await getDocs(readingListCol);
+        // Collect poems with docId
+        const poems = [];
+        snapshot.forEach(docSnap => {
+          const data = docSnap.data();
+          data.docId = docSnap.id; // Store Firestore document ID
+          poems.push(data);
+        });
+        // Sort by position if present, fallback to timestamp
+        poems.sort((a, b) => {
+          if (typeof a.position === 'number' && typeof b.position === 'number') {
+            return a.position - b.position;
+          }
+          if (a.timestamp && b.timestamp) {
+            return (a.timestamp.seconds || 0) - (b.timestamp.seconds || 0);
+          }
+          return 0;
+        });
+        poems.forEach((poem, idx) => {
+          const poemDiv = document.createElement('div');
+          poemDiv.className = 'poem-item';
+          poemDiv.style.display = 'flex';
+          poemDiv.style.alignItems = 'center';
+          poemDiv.style.justifyContent = 'space-between';
+          poemDiv.setAttribute('draggable', 'true');
+          poemDiv.setAttribute('data-doc-id', poem.docId || '');
+          const poemTextSpan = document.createElement('span');
+          poemTextSpan.textContent = `${poem.id} — ${poem.title}`;
+          poemDiv.appendChild(poemTextSpan);
+          // Add "Read Now" button (Material Icon)
+          const readNowBtn = document.createElement('button');
+          readNowBtn.title = 'Read now';
+          readNowBtn.style.background = 'none';
+          readNowBtn.style.border = 'none';
+          readNowBtn.style.cursor = 'pointer';
+          readNowBtn.style.fontSize = '1.1em';
+          readNowBtn.style.verticalAlign = 'middle';
+          readNowBtn.style.padding = '2px 4px';
+          readNowBtn.innerHTML = '<span class="material-icons">menu_book</span>';
+          readNowBtn.addEventListener('click', async () => {
+            const adminRightCol = document.querySelector('.admin-right-col');
+
+            // Hide or remove the poem-placeholder
+            const poemPlaceholder = adminRightCol.querySelector('.poem-placeholder');
+            if (poemPlaceholder) {
+              poemPlaceholder.style.display = 'none';
+            }
+
+            // Remove any existing poem iframe
+            const existingIframe = adminRightCol.querySelector('#poemIframe');
+            if (existingIframe) {
+              existingIframe.remove();
+            }
+
+            // Insert the iframe for the selected poem
+            const iframe = document.createElement('iframe');
+            iframe.id = 'poemIframe';
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const isDark = currentTheme === 'dark';
+            const urlBase = poem.id === '1' ? '/poems-admin/1.html' : `/poems/${encodeURIComponent(poem.id)}`;
+            iframe.src = isDark ? `${urlBase}?dark` : urlBase;
+            iframe.style.width = '100%';
+            iframe.style.border = 'none';
+            iframe.style.borderRadius = '8px';
+            iframe.setAttribute('scrolling', 'no');
+            const actionsContainer = adminRightCol.querySelector('.admin-actions-container');
+            if (actionsContainer && actionsContainer.nextSibling) {
+              adminRightCol.insertBefore(iframe, actionsContainer.nextSibling);
+            } else {
+              adminRightCol.appendChild(iframe);
+            }
+
+            iframe.onload = () => {
+              setTimeout(() => {
+                try {
+                  const iframeBody = iframe.contentWindow.document.body;
+                  iframe.style.height = iframeBody.scrollHeight + 'px';
+                  iframe.contentWindow.document.documentElement.setAttribute('data-theme', currentTheme);
+                } catch (err) {
+                  console.error("Error setting iframe height:", err);
+                  iframe.style.height = '600px';
+                }
+              }, 100);
+            };
+
+            // --- Firestore: Set current poem using Boolean isCurrent ---
+            if (roomCode && poem.docId) {
+              try {
+                const { collection, getDocs, doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js");
+                const readingListCol = collection(db, "rooms", roomCode, "readingList");
+                const snapshot = await getDocs(readingListCol);
+                // First set all poems to isCurrent = false
+                const updates = [];
+                snapshot.forEach(docSnap => {
+                  const ref = doc(db, "rooms", roomCode, "readingList", docSnap.id);
+                  updates.push(updateDoc(ref, { isCurrent: false }));
+                });
+                await Promise.all(updates);
+                // Then set selected poem to isCurrent = true
+                const selectedRef = doc(db, "rooms", roomCode, "readingList", poem.docId);
+                await updateDoc(selectedRef, { isCurrent: true });
+                console.log("Updated current poem using isCurrent boolean:", poem.id);
+              } catch (err) {
+                console.error("Failed to update current poem in Firestore:", err);
+              }
+            }
+          });
+          // Add remove button (Material Icon)
+          const removeBtn = document.createElement('button');
+          removeBtn.title = 'Remove from reading list';
+          removeBtn.style.background = 'none';
+          removeBtn.style.border = 'none';
+          removeBtn.style.cursor = 'pointer';
+          removeBtn.style.fontSize = '1.1em';
+          removeBtn.style.verticalAlign = 'middle';
+          removeBtn.style.padding = '2px 4px';
+          removeBtn.innerHTML = '<span class="material-icons">delete</span>';
+          removeBtn.addEventListener('click', async () => {
+            if (roomCode && poem.docId) {
+              try {
+                await deleteDoc(doc(db, "rooms", roomCode, "readingList", poem.docId));
+                loadReadingList();
+              } catch (error) {
+                console.error("Error removing poem from reading list:", error);
+              }
+            }
+          });
+          // Ensure Read Now appears before Remove for visual order
+          poemDiv.appendChild(readNowBtn);
+          poemDiv.appendChild(removeBtn);
+          // Insert after the header span
+          if (headerSpan && headerSpan.nextSibling) {
+            readingListContainer.insertBefore(poemDiv, headerSpan.nextSibling);
+          } else {
+            readingListContainer.appendChild(poemDiv);
+          }
+        });
+        enableDragAndDrop(readingListContainer);
+      } catch (error) {
+        // If error loading, display nothing but log error
+        console.error("Error loading reading list:", error);
+      }
+    }
+
+    // Firebase config (same as your other page, but fix storageBucket)
+    const firebaseApp = initializeApp({
+      apiKey: "AIzaSyANZ0TUYv-pVhU0ZbD7MTT5Ugm2IjCgeXE",
+      authDomain: "qasidacollection2.firebaseapp.com",
+      projectId: "qasidacollection2",
+      storageBucket: "qasidacollection2.appspot.com",
+      messagingSenderId: "238399206269",
+      appId: "1:238399206269:web:eb532025660d83f98c5214",
+      measurementId: "G-ZWNCJLB60F"
+    });
+
+    const db = getFirestore(firebaseApp);
+
+    // Get ?room=CODE from URL
+    const params = new URLSearchParams(window.location.search);
+    const roomCode = params.get("room");
+
+    async function loadRoom() {
+      const codeText = document.getElementById("roomCodeText");
+      if (!roomCode) {
+        codeText.textContent = "No room code provided.";
+        return;
+      }
+      const docRef = doc(db, "rooms", roomCode);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        codeText.textContent = roomCode;
+        // You can later fetch poems related to this room here
+      } else {
+        codeText.textContent = "Room not found.";
+      }
+    }
+
+    async function loadPoems() {
+      const poemsContainer = document.getElementById('allPoemsContainer');
+      // Clear default span text
+      poemsContainer.innerHTML = '';
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/youwi-08/qasidacollectionjson/main/poems-list.json');
+        if (!response.ok) throw new Error('Failed to fetch poems');
+        const poems = await response.json();
+        if (!Array.isArray(poems) || poems.length === 0) {
+          poemsContainer.textContent = 'No poems available.';
+          return;
+        }
+        poems.forEach(poem => {
+          // Exclude poem with title "Home"
+          if (poem.title === "Home 🏡") return;
+          const poemDiv = document.createElement('div');
+          poemDiv.className = 'poem-item';
+          poemDiv.style.display = 'flex';
+          poemDiv.style.alignItems = 'center';
+          poemDiv.style.justifyContent = 'space-between';
+          const poemTextSpan = document.createElement('span');
+          poemTextSpan.textContent = `${poem.id} — ${poem.title}`;
+          // Create the add-to-reading-list button (Material Icon)
+          const addBtn = document.createElement('button');
+          addBtn.title = 'Add to reading list';
+          addBtn.style.background = 'none';
+          addBtn.style.border = 'none';
+          addBtn.style.cursor = 'pointer';
+          addBtn.style.fontSize = '1.1em';
+          addBtn.style.verticalAlign = 'middle';
+          addBtn.style.padding = '2px 4px';
+          addBtn.innerHTML = '<span class="material-icons">playlist_add</span>';
+          addBtn.addEventListener('click', async () => {
+            const pollOrderContainer = document.getElementById('readingListContainer');
+            // Save the poem to Firestore under rooms/{roomCode}/readingList
+            if (roomCode) {
+              try {
+                // Find current max position
+                const readingListCollection = collection(db, "rooms", roomCode, "readingList");
+                const snapshot = await getDocs(readingListCollection);
+                let maxPosition = -1;
+                snapshot.forEach(docSnap => {
+                  const data = docSnap.data();
+                  if (typeof data.position === 'number' && data.position > maxPosition) {
+                    maxPosition = data.position;
+                  }
+                });
+                const newPosition = maxPosition + 1;
+                const docRef = await addDoc(readingListCollection, {
+                  id: poem.id,
+                  title: poem.title,
+                  timestamp: new Date(),
+                  position: newPosition
+                });
+                // Reload reading list to reflect addition and new order
+                loadReadingList();
+              } catch (error) {
+                console.error("Error adding poem to reading list in Firestore:", error);
+              }
+            }
+          });
+          poemDiv.appendChild(poemTextSpan);
+          poemDiv.appendChild(addBtn);
+          poemsContainer.appendChild(poemDiv);
+        });
+      } catch (error) {
+        poemsContainer.textContent = 'Error loading poems.';
+        console.error(error);
+      }
+    }
+
+    // Theme toggle logic (single button, squircle)
+    const themeToggleButton = document.getElementById('themeToggleButton');
+    const themeToggleIcon = document.getElementById('themeToggleIcon');
+    const htmlElement = document.documentElement;
+
+    function setTheme(theme) {
+      htmlElement.setAttribute('data-theme', theme);
+      // Update button icon
+      if (theme === 'dark') {
+        themeToggleIcon.textContent = 'dark_mode';
+        themeToggleButton.title = 'Switch to light mode';
+      } else {
+        themeToggleIcon.textContent = 'light_mode';
+        themeToggleButton.title = 'Switch to dark mode';
+      }
+      // Update iframe theme if present
+      const iframe = document.getElementById('poemIframe');
+      if (iframe && iframe.contentWindow && iframe.contentWindow.document) {
+        iframe.contentWindow.document.documentElement.setAttribute('data-theme', theme);
+      }
+      // Reload iframe with correct theme variant (?dark for dark mode)
+      if (iframe) {
+        const baseUrl = iframe.src.split('?')[0];
+        iframe.src = theme === 'dark' ? `${baseUrl}?dark` : baseUrl;
+      }
+    }
+
+    // Follow system theme on load, but allow manual toggle
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+    function applySystemTheme() {
+      setTheme(systemTheme.matches ? 'dark' : 'light');
+    }
+    // Apply on load
+    applySystemTheme();
+    // Listen for system theme changes
+    systemTheme.addEventListener('change', applySystemTheme);
+
+    // Manual toggle by button click
+    themeToggleButton.addEventListener('click', () => {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    });
+
+    loadRoom();
+    loadReadingList();
+    loadPoems();
+
+    // Resizable functionality for reading list and all poems containers
+    const readingListContainer = document.getElementById('readingListContainer');
+    const allPoemsContainer = document.getElementById('allPoemsContainer');
+    const resizer = document.getElementById('resizerBetweenLists');
+    let isResizing = false;
+    let startY = 0;
+    let startHeight = 0;
+
+    function startResize(clientY) {
+      isResizing = true;
+      startY = clientY;
+      startHeight = readingListContainer.getBoundingClientRect().height;
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'row-resize';
+    }
+
+    function doResize(clientY) {
+      if (!isResizing) return;
+      const dy = clientY - startY;
+      let newHeight = startHeight + dy;
+      const minH = 120;
+      const maxH = window.innerHeight - 180;
+      if (newHeight < minH) newHeight = minH;
+      if (newHeight > maxH) newHeight = maxH;
+      readingListContainer.style.height = newHeight + 'px';
+      // ensure the lower list flexes to remaining space
+      allPoemsContainer.style.flex = '1 1 auto';
+    }
+
+    function stopResize() {
+      if (!isResizing) return;
+      isResizing = false;
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+    }
+
+    // Desktop mouse events
+    resizer.addEventListener('mousedown', function(e) {
+      startResize(e.clientY);
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', function(e) {
+      doResize(e.clientY);
+    });
+    document.addEventListener('mouseup', function() {
+      stopResize();
+    });
+
+    // Touch events for mobile/tablet
+    resizer.addEventListener('touchstart', function(e) {
+      const touch = e.touches[0];
+      startResize(touch.clientY);
+      e.preventDefault();
+    }, {passive: false});
+    document.addEventListener('touchmove', function(e) {
+      if (!isResizing) return;
+      const touch = e.touches[0];
+      doResize(touch.clientY);
+    }, {passive: false});
+    document.addEventListener('touchend', function() {
+      stopResize();
+    });
+  </script>
+</body>
+</html>
