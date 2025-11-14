@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>يا إمام الرسل</title>
+  <link rel="icon" type="image/png" href="/images/logo.ico" sizes="32x32">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      position: relative;
+      transition: background-color 0.3s, color 0.3s;
+      color: #000;
+    }
+
+    .container {
+      background: white;
+      padding: 40px 60px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      text-align: center;
+      position: relative;
+      transition: background-color 0.3s, color 0.3s;
+      color: #000;
+      width: 750px;
+      max-width: 90vw;
+    }
+
+    .font-size-controls {
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    /* Top-left share, translation, transliteration buttons */
+    .top-left-buttons {
+      position: absolute;
+      top: 40px;
+      left: 170px;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      z-index: 2;
+    }
+    .button {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 50%;
+      background-color: #256328;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+      transition: background 0.2s, color 0.3s;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    /* Tooltip styles for buttons using data-tooltip attribute */
+    .button[data-tooltip]:hover:after, .button[data-tooltip]:focus:after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 50%;
+      top: 110%;
+      transform: translateX(-50%);
+      background: #222;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.85em;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 3000;
+      opacity: 0.92;
+    }
+    .button:hover {
+      background-color: #254563;
+    }
+    .back-button {
+      position: absolute;
+      top: 40px;
+      left: 60px;
+      z-index: 2;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      font-size: 1.2rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container p {
+      margin: 15px 0;
+      line-height: 2;
+      direction: rtl;
+      text-align: center;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+    /* Alternate line colour for paragraphs with .alt class */
+    .container p.alt {
+      color: #256328;
+    }
+    .container .translation {
+      font-size: 0.8em;
+      font-style: normal;
+      color: #444;
+      direction: ltr;
+      text-align: center;
+      margin-top: 0.3em;
+      margin-bottom: 0.8em;
+      font-family: Arial, sans-serif;
+      display: none;
+      transition: color 0.3s;
+    }
+    .container .transliteration {
+      font-size: 0.9em;
+      font-style: italic;
+      color: #666;
+      direction: ltr;
+      text-align: center;
+      margin-top: -0.4em;
+      margin-bottom: 0.7em;
+      font-family: "Times New Roman", Times, serif;
+      display: none;
+      transition: color 0.3s;
+    }
+    @font-face {
+      font-family: "Diwan Thuluth";
+      src: url("fonts/DiwanThuluth.ttf") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Al Bayan";
+      src: url("fonts/AlBayan.ttf") format("truetype");
+    }
+
+    h1 {
+      font-family: "Diwan Thuluth", serif;
+      transition: color 0.3s;
+      color: #C99F35;
+    }
+
+    .container p {
+      font-family: "Al Bayan", sans-serif;
+            color: #6A7786
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .container {
+      background-color: #2A2A2A;
+      color: #e0e0e0;
+      box-shadow: 0 4px 10px rgba(255,255,255,0.1);
+    }
+
+    body.dark-mode .container p {
+      color: #e0e0e0;
+    }
+    body.dark-mode .container p.alt {
+      color: #53A2A9;
+    }
+    body.dark-mode .container .translation {
+      color: #b8e1f2;
+    }
+    body.dark-mode .container .transliteration {
+      color: #b7b7b7;
+    }
+
+    body.dark-mode h1 {
+      color: #53A2A9;
+    }
+
+    body.dark-mode .button {
+      background-color: #444;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .button:hover {
+      background-color: #666;
+    }
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
+  color: #000;
+}
+
+.page-layout {
+  display: flex;
+  align-items: stretch; /* makes nav-pane and container same height */
+  gap: 30px; /* spacing between nav and content */
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+  .nav-pane {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    margin: 0;
+    padding: 40px 20px;
+    width: 250px;
+    max-width: 80vw;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+    transform: translateX(-100%);
+    z-index: 2000;
+    background: white;
+    transition: transform 0.3s ease-in-out;
+  }
+  body.dark-mode .nav-pane {
+    background: #1e1e1e;
+  }
+  .nav-pane.show {
+    transform: translateX(0);
+  }
+  .page-layout {
+    gap: 0;
+  }
+  .container {
+    width: 100%;
+    max-width: 100vw;
+    padding: 40px 20px 60px 20px;
+  }
+  .back-button {
+    left: 60px;
+  }
+  #shareButton {
+    left: 110px;
+  }
+  /* Hamburger button styles */
+  .hamburger-button {
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    z-index: 2100;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #256328;
+    color: white;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    transition: background 0.2s, color 0.3s;
+  }
+  .hamburger-button:hover {
+    background-color: #254563;
+  }
+}
+
+/* Hide hamburger button on larger screens */
+@media (min-width: 769px) {
+  .hamburger-button {
+    display: none;
+  }
+}
+    /* Traditional chorus box style */
+    .chorus-box {
+      background-color: #fff8e1; /* soft parchment-like background */
+      border: 2px solid #c99f35; /* golden frame-like border */
+      border-radius: 12px;
+      padding: 5px 10px;
+      margin: 20px 0;
+      font-family: "Al Bayan", serif; 
+      font-size: 1.25rem;
+      font-style: normal;
+      text-align: center;
+      line-height: 2;
+      box-shadow: inset 0 0 10px rgba(200, 159, 53, 0.2);
+      position: relative;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    /* Dark mode for chorus box */
+    body.dark-mode .chorus-box {
+      background-color: #2b2b1f; /* dark parchment */
+      border-color: #53a2a9;
+      color: #e0e0e0;
+      box-shadow: inset 0 0 10px rgba(83, 162, 169, 0.2);
+    }
+
+    /* Decorative marks above and below chorus */
+    .chorus-box::before,
+    .chorus-box::after {
+      content: "۞";
+      display: block;
+      font-size: 1.5rem;
+      color: #c99f35;
+      margin: 6px 0;
+    }
+
+    body.dark-mode .chorus-box::before,
+    body.dark-mode .chorus-box::after {
+      color: #53a2a9;
+    }
+        /* Filter tag buttons container and button styles */
+    #tagFilterContainer {
+      width: 100%;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 6px;
+      text-align: left;
+      box-sizing: border-box;
+    }
+    .filter-button {
+      display: inline-block;
+      margin: 0 6px 6px 0;
+      padding: 6px 16px;
+      border-radius: 18px;
+      background-color: #e0e9e3;
+      color: #256328;
+      border: none;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      outline: none;
+      font-family: inherit;
+      box-shadow: 0 1px 3px rgba(37,99,40,0.05);
+    }
+    .filter-button.active,
+    .filter-button:focus {
+      background-color: #256328;
+      color: #fff;
+    }
+    .filter-button:hover:not(.active) {
+      background-color: #c8dbcf;
+    }
+
+    body.dark-mode #tagFilterContainer {
+      background: transparent;
+    }
+    body.dark-mode .filter-button {
+      background-color: #2a3f2d;
+      color: #53A2A9;
+    }
+    body.dark-mode .filter-button.active,
+    body.dark-mode .filter-button:focus {
+      background-color: #53A2A9;
+      color: #1e1e1e;
+    }
+    body.dark-mode .filter-button:hover:not(.active) {
+      background-color: #256328;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-layout">
+    <div class="container" data-disable-chorus="true">
+
+      <h1>يا إمام الرسل</h1>
+
+      <!-- Chorus Box -->
+      <div class="chorus-box">
+        <p>يَــا إِمَــامَ الــرُّسُــلِ يَــا سَــنَــدِي ۝ أَنْــتَ بَـــابُ الــلــهِ مُــعْــتَــمَــدِي</p>
+        <p>فَــبِــدُنْــيَــايَ وَآخِــرَتِــي ۝ يَــارَسُــولَ الــلــهِ خُــذْ بِــيَــدِي</p>     
+      </div>
+
+      <!-- Poem Input -->
+      <p>يَــا إِمَــامَ الــرُّسُــلِ يَــا سَــنَــدِي ۝ أَنْــتَ بَـــابُ الــلــهِ مُــعْــتَــمَــدِي</p>
+      <div class="transliteration">Ya Imaam al-rusuli ya sanadī ۝ Anta baabullāhi mu‘tamadi</div>
+      <div class="translation">O leader of the messengers, O my support ۝ You are Allah’s gateway, my reliance</div>
+      <p>فَــبِــدُنْــيَــايَ وَآخِــرَتِــي ۝ يَــارَسُــولَ الــلــهِ خُــذْ بِــيَــدِي</p>
+      <div class="transliteration">Fabidunyāyā Wa ʾĀkhiratī ۝ Ya Rasūl Allāhi Khuth Biyadi 	</div>
+      <div class="translation">O leader of the messengers, O my support ۝ You are Allah’s gateway, my reliance</div>
+
+      <p class="alt">قَــسَــمًــا بِــالــنَّــجْــمِ حِــيــنَ هَــوَى ۝ مَــا الْــمُــعَــافَــى وَ الــسَّــقِــيــمُ سَــوَى</p>
+      <div class="transliteration">Qasaman bil-najmi hīna hawā ۝ Mal-mu‘āfā wāl-saqīmu sawā</div>
+      <p class="alt">فَــاخْــلَــعِ الْــكَــوْنَــيْــنِ عَــنْــكَ سِــوَى ۝ حُــبِّ مَــوْلَــى الْــعُــرْبِ وَالْــعَــجَــمِ</p>
+      <div class="transliteration">Fakhlā‘il-kawnayni ‘anka siwā ۝ Hubbī Mawlāl-‘urbi wal-‘ajami</div>
+
+      <p>سَــيِّــدُ الــسَّــــادَاتِ مِــنْ مُــضَــرٍ ۝ غَــوْثُ أَهْــلِ الْــبَــدْوِ وَالْــحَــضَــرِ</p>
+      <div class="transliteration">Sayyidus-sādāti mīn muḍarrin ۝ Ghawthu ahlil-bādwi wal-ḥaḍari</div>
+      <p>صَــا حِــبُّ الْآيَــاتِ وَالــسُّــوَرِ ۝ مَــنْــبَــعُ الْأَحْــكَــامِ وَالْــحِــكَــمِ</p>
+      <div class="transliteration">Ṣaḥibul-āyāti wās-suwari ۝ Manba‘ul-aḥkāmi wāl-ḥikamī</div>
+
+      <p class="alt">قَــمَــرٌ طَــابَــتْ سَــرِيــرَتُــهُ ۝ وَسَــجَــايَــاهُ وَسِــيــرَتُــهُ</p>
+      <div class="transliteration">Qamrun ṭabāt sarīratuhu ۝ Wa sajāyāhu wā sīratuhu</div>
+      <p class="alt">صَــفْــوَةُ الْــبَــارِي وَخِــيــرَتُــهُ ۝ عَــدْلُ أَهْــلِ الْــحِــلِ وَالْــحَــرَمِ</p>
+      <div class="transliteration">Ṣafwatul-bārī wā khīratuhu ۝ ‘Adlu ahlil-ḥilli wāl-ḥarami</div>
+
+      <p>مَــا رَأَتْ عَــيْــنُ وَلَــيْــسَ تَــرَى ۝ مِــثْــلَ طَــهَ فِــي الْــوَرَى بَــشَــرَا</p>
+      <div class="transliteration">Mā ra’at ‘aynūn walaysa tarā ۝ Mithla ṭaha fīl-warā bashara</div>
+      <p>خَــيْــرُ مَــنْ فَــوْقَ الــثَّــرَى أَثَــرَا ۝ طَــاهِــرُ الْأَخْــلَاقِ وَالــشَّــيَــمِ</p>
+      <div class="transliteration"> Khayru Man Fawqāl-tharā atharā ۝ Ṭahirul-akhlāqī wāsh-shaymī</div>
+    </div>
+<script>
+  // Automatically enable dark mode if the URL contains ?dark
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('dark')) {
+      document.body.classList.add('dark-mode');
+    }
+  });
+</script>
+<script>
+(function() {
+  function sendHeight() {
+    const height = document.documentElement.scrollHeight || document.body.scrollHeight;
+    window.parent.postMessage({ type: 'poem-height', height }, '*');
+  }
+
+  // Send initial height after load
+  window.addEventListener('load', () => setTimeout(sendHeight, 50));
+
+  // Resend on resize or DOM changes
+  window.addEventListener('resize', () => setTimeout(sendHeight, 50));
+  new MutationObserver(() => setTimeout(sendHeight, 50))
+    .observe(document.body, { childList: true, subtree: true, attributes: true, characterData: true });
+
+  // Respond to parent requests
+  window.addEventListener('message', e => {
+    if (e.data && e.data.type === 'request-height') sendHeight();
+    if (e.data && e.data.type === 'set-theme' && e.data.theme) {
+      document.documentElement.setAttribute('data-theme', e.data.theme);
+    }
+  });
+})();
+</script>
+</body>
+</html>

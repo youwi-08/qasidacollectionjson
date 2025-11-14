@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Admin Center | HTML Embedder</title>
+<style>
+  body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, "Al Bayan", sans-serif;
+    margin: 20px;
+    background: #f7f8fa;
+    color: #111;
+  }
+  .container {
+    max-width: 700px;
+    margin: auto;
+  }
+  h2 {
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 6px;
+    color: #666;
+    font-weight: 500;
+  }
+  textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background: white;
+    color: #111;
+  }
+  textarea:focus {
+    border-color: #256328;
+    outline: none;
+  }
+  .line-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    align-items: flex-start;
+  }
+  .line-row textarea {
+    flex: 1;
+    min-height: 40px;
+  }
+  .line-arabic {
+    direction: rtl;
+    text-align: right;
+  }
+  .idx {
+    width: 24px;
+    text-align: center;
+    color: #888;
+    user-select: none;
+    margin-top: 10px;
+  }
+  .alt-checkbox {
+    margin-top: 12px;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  button, .btn {
+    margin-top: 20px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    background: #256328;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  button.primary, .btn.primary {
+    background: #256328;
+    color: white;
+  }
+  button.secondary, .btn.secondary {
+    background: #ddd;
+    color: #333;
+    margin-left: 10px;
+  }
+  button:active {
+    opacity: 0.8;
+  }
+  #linesList {
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: white;
+    padding: 10px;
+    color: #111;
+  }
+  #linesList .empty-message {
+    color: #999;
+    font-style: italic;
+  }
+  #outputCode {
+    margin-top: 20px;
+    background: #151b22;
+    color: #f6fafc;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: ui-monospace, monospace;
+    white-space: pre-wrap;
+    max-height: 320px;
+    overflow: auto;
+  }
+  #copySuccess {
+    margin-top: 10px;
+    color: #064e1b;
+    background: #e6ffed;
+    border: 1px solid #9ee2b7;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: none;
+  }
+  /* Dark mode styles */
+  @media (prefers-color-scheme: dark) {
+    body {
+      background: #121212;
+      color: #ddd;
+    }
+    .container {
+      color: #ddd;
+    }
+    h2 {
+      color: #bbb;
+    }
+    label {
+      color: #aaa;
+    }
+    textarea {
+      background: #1e1e1e;
+      color: #ddd;
+      border: 1px solid #444;
+    }
+    textarea:focus {
+      border-color: #58a65c;
+      outline: none;
+      background: #2a2a2a;
+    }
+    #linesList {
+      background: #1e1e1e;
+      border-color: #444;
+      color: #ddd;
+    }
+    #linesList .empty-message {
+      color: #777;
+    }
+    button, .btn {
+      background: #3a7d3a;
+      color: white;
+    }
+    button.secondary, .btn.secondary {
+      background: #444;
+      color: #ddd;
+      margin-left: 10px;
+    }
+    button:active {
+      opacity: 0.9;
+    }
+    #outputCode {
+      background: #222;
+      color: #eee;
+      border: 1px solid #444;
+    }
+    #copySuccess {
+      color: #a6d8a8;
+      background: #2a3a2a;
+      border: 1px solid #4a6a4a;
+    }
+    .idx {
+      color: #666;
+    }
+  }
+  /* Dark mode toggle button */
+  #darkModeToggle {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: 2px solid #256328;
+    border-radius: 6px;
+    color: #256328;
+    font-weight: 600;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    z-index: 1000;
+  }
+  #darkModeToggle:hover {
+    background: #256328;
+    color: white;
+  }
+  /* Dark mode toggle button dark styles */
+  body.dark-mode #darkModeToggle {
+    background: #256328 !important;
+    color: white !important;
+    border-color: #58a65c !important;
+  }
+  body.dark-mode #darkModeToggle:hover {
+    background: #58a65c !important;
+    color: #121212 !important;
+  }
+  /* Dark mode overrides for elements when toggled */
+  body.dark-mode {
+    background: #121212 !important;
+    color: #ddd !important;
+  }
+  body.dark-mode .container {
+    color: #ddd !important;
+  }
+  body.dark-mode h2 {
+    color: #bbb !important;
+  }
+  body.dark-mode label {
+    color: #aaa !important;
+  }
+  body.dark-mode textarea {
+    background: #1e1e1e !important;
+    color: #ddd !important;
+    border: 1px solid #444 !important;
+  }
+  body.dark-mode textarea:focus {
+    border-color: #58a65c !important;
+    background: #2a2a2a !important;
+  }
+  body.dark-mode #linesList {
+    background: #1e1e1e !important;
+    border-color: #444 !important;
+    color: #ddd !important;
+  }
+  body.dark-mode #linesList .empty-message {
+    color: #777 !important;
+  }
+  body.dark-mode button, body.dark-mode .btn {
+    background: #3a7d3a !important;
+    color: white !important;
+  }
+  body.dark-mode button.secondary, body.dark-mode .btn.secondary {
+    background: #444 !important;
+    color: #ddd !important;
+  }
+  body.dark-mode button:active {
+    opacity: 0.9 !important;
+  }
+  body.dark-mode #outputCode {
+    background: #222 !important;
+    color: #eee !important;
+    border: 1px solid #444 !important;
+  }
+  body.dark-mode #copySuccess {
+    color: #a6d8a8 !important;
+    background: #2a3a2a !important;
+    border: 1px solid #4a6a4a !important;
+  }
+  body.dark-mode .idx {
+    color: #666 !important;
+  }
+</style>
+</head>
+<body>
+  <button id="darkModeToggle" aria-label="Toggle dark mode">Dark Mode</button>
+  <div class="container">
+    <h2>Poem → HTML embedder</h2>
+    <p>Paste <strong>Arabic</strong> (one line per verse), <strong>Transliteration</strong>, and <strong>Translation</strong> into their fields. Click <strong>Parse lines</strong> to split, then edit and generate HTML below.</p>
+
+    <label for="arabRaw">Arabic (paste here)</label>
+    <textarea id="arabRaw" dir="rtl" placeholder="اكتب شيئ هنا"></textarea>
+
+    <label for="translitRaw">Transliteration (one line per Arabic line)</label>
+    <textarea id="translitRaw" dir="ltr" placeholder="a sample transliteration line per poem line"></textarea>
+
+    <label for="transRaw">Translation (one line per Arabic line)</label>
+    <textarea id="transRaw" dir="ltr" placeholder="A sample translation line per poem line"></textarea>
+
+    <div>
+      <button id="parseBtn" class="btn primary">Parse lines</button>
+      <button id="generateBtn" class="btn secondary">Generate output</button>
+      <button id="clearBtn" class="btn secondary">Clear</button>
+    </div>
+
+    <div id="linesList" aria-live="polite">
+      <div class="empty-message">Parsed lines will appear here after clicking <strong>Parse lines</strong>.</div>
+    </div>
+
+    <p>For each line, optionally check <b>alt</b> for alternate styling. Edit content directly below.</p>
+
+    <div style="display:flex; justify-content: space-between; align-items: center;">
+      <h2 style="margin:0; font-size:1rem;">Generated HTML</h2>
+      <button id="copyBtn" class="btn primary">Copy HTML</button>
+    </div>
+    <pre id="outputCode" aria-live="polite"></pre>
+    <div id="copySuccess">Copied HTML to clipboard ✓</div>
+  </div>
+
+<script>
+function escapeHtml(s){
+  return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+}
+function splitLines(s){
+  if(!s) return [];
+  return s.replace(/\r/g,'').split('\n');
+}
+
+const linesList = document.getElementById('linesList');
+const arabRaw = document.getElementById('arabRaw');
+const translitRaw = document.getElementById('translitRaw');
+const transRaw = document.getElementById('transRaw');
+const parseBtn = document.getElementById('parseBtn');
+const generateBtn = document.getElementById('generateBtn');
+const clearBtn = document.getElementById('clearBtn');
+const copyBtn = document.getElementById('copyBtn');
+const outputCode = document.getElementById('outputCode');
+const copySuccess = document.getElementById('copySuccess');
+const darkModeToggle = document.getElementById('darkModeToggle');
+
+let autoUpdate = true;
+
+function makeLineRow(index, arab, translit, trans) {
+  const row = document.createElement('div');
+  row.className = 'line-row';
+  row.dataset.index = index;
+
+  const altBox = document.createElement('input');
+  altBox.type = 'checkbox';
+  altBox.className = 'alt-checkbox';
+  altBox.title = 'Mark as alt (outputs <p class="alt">)';
+  row.appendChild(altBox);
+
+  const idx = document.createElement('div');
+  idx.className = 'idx';
+  idx.textContent = index + 1;
+  row.appendChild(idx);
+
+  const arabTex = document.createElement('textarea');
+  arabTex.className = 'line-arabic';
+  arabTex.dir = 'rtl';
+  arabTex.value = arab ?? '';
+  arabTex.placeholder = 'Arabic line';
+  row.appendChild(arabTex);
+
+  const transltTex = document.createElement('textarea');
+  transltTex.className = 'line-translit';
+  transltTex.value = translit ?? '';
+  transltTex.placeholder = 'Transliteration (optional)';
+  row.appendChild(transltTex);
+
+  const transTex = document.createElement('textarea');
+  transTex.className = 'line-translation';
+  transTex.value = trans ?? '';
+  transTex.placeholder = 'Translation (optional)';
+  row.appendChild(transTex);
+
+  const rmBtn = document.createElement('button');
+  rmBtn.className = 'btn secondary';
+  rmBtn.style.padding = '4px 10px';
+  rmBtn.style.fontSize = '0.95rem';
+  rmBtn.title = 'Delete this line';
+  rmBtn.textContent = '✕';
+  rmBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    row.remove();
+    reindexRows();
+    if (autoUpdate) generateAndShow();
+  });
+  row.appendChild(rmBtn);
+
+  [arabTex, transltTex, transTex].forEach(el => {
+    el.addEventListener('input', () => { if (autoUpdate) generateAndShow(); });
+  });
+  altBox.addEventListener('change', () => { if (autoUpdate) generateAndShow(); });
+
+  return row;
+}
+
+function reindexRows() {
+  [...linesList.querySelectorAll('.line-row')].forEach((r, i) => {
+    r.dataset.index = i;
+    const idx = r.querySelector('.idx');
+    if (idx) idx.textContent = i + 1;
+  });
+}
+
+function parseIntoRows() {
+  const aLines = splitLines(arabRaw.value);
+  const tlLines = splitLines(translitRaw.value);
+  const trLines = splitLines(transRaw.value);
+  const max = Math.max(aLines.length, tlLines.length, trLines.length);
+  linesList.innerHTML = '';
+  if (max === 0) {
+    linesList.innerHTML = '<div class="empty-message">No lines found — paste text and click <strong>Parse lines</strong>.</div>';
+    outputCode.textContent = '';
+    return;
+  }
+  for (let i = 0; i < max; i++) {
+    const a = aLines[i] ?? '';
+    const tl = tlLines[i] ?? '';
+    const tr = trLines[i] ?? '';
+    const row = makeLineRow(i, a, tl, tr);
+    linesList.appendChild(row);
+  }
+  generateAndShow();
+}
+
+function generateHtmlSnippet() {
+  const rows = [...linesList.querySelectorAll('.line-row')];
+  let out = '';
+  rows.forEach(row => {
+    const alt = row.querySelector('.alt-checkbox').checked;
+    const arab = row.querySelector('.line-arabic').value ?? '';
+    const translit = row.querySelector('.line-translit').value ?? '';
+    const trans = row.querySelector('.line-translation').value ?? '';
+    if (!arab.trim() && !translit.trim() && !trans.trim()) return;
+    out += alt
+      ? `<p class="alt">${arab}</p>\n`
+      : `<p>${arab}</p>\n`;
+    if (translit.trim()) {
+      out += `<div class="transliteration">${translit}</div>\n`;
+    }
+    if (trans.trim()) {
+      out += `<div class="translation">${trans}</div>\n`;
+    }
+    out += `\n`;
+  });
+  return out.trim() + '\n';
+}
+
+function generateAndShow(){
+  const html = generateHtmlSnippet();
+  outputCode.textContent = html;
+  copySuccess.style.display = 'none';
+}
+
+async function copyToClipboard() {
+  const html = generateHtmlSnippet();
+  try {
+    await navigator.clipboard.writeText(html);
+    copySuccess.style.display = 'block';
+    setTimeout(() => copySuccess.style.display = 'none', 1800);
+  } catch {
+    alert('Unable to copy automatically. Select the code and press Ctrl/Cmd+C.');
+  }
+}
+
+function clearAll() {
+  arabRaw.value = '';
+  translitRaw.value = '';
+  transRaw.value = '';
+  linesList.innerHTML = '<div class="empty-message">Parsed lines will appear here after clicking <strong>Parse lines</strong>.</div>';
+  outputCode.textContent = '';
+}
+
+parseBtn.addEventListener('click', parseIntoRows);
+generateBtn.addEventListener('click', generateAndShow);
+clearBtn.addEventListener('click', clearAll);
+copyBtn.addEventListener('click', copyToClipboard);
+
+[arabRaw, translitRaw, transRaw].forEach(t => {
+  t.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      parseIntoRows();
+    }
+  });
+});
+
+generateAndShow();
+
+// Dark mode toggle logic
+function setDarkMode(enabled) {
+  if (enabled) {
+    document.body.classList.add('dark-mode');
+    darkModeToggle.textContent = 'Light Mode';
+  } else {
+    document.body.classList.remove('dark-mode');
+    darkModeToggle.textContent = 'Dark Mode';
+  }
+}
+
+function detectSystemDarkMode() {
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+let darkModeEnabled = detectSystemDarkMode();
+setDarkMode(darkModeEnabled);
+
+darkModeToggle.addEventListener('click', () => {
+  darkModeEnabled = !darkModeEnabled;
+  setDarkMode(darkModeEnabled);
+  darkModeToggle.dataset.userToggled = 'true';
+});
+
+// Listen for system theme changes and update if user hasn't toggled manually
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  if (!darkModeToggle.dataset.userToggled) {
+    darkModeEnabled = e.matches;
+    setDarkMode(darkModeEnabled);
+  }
+});
+</script>
+</body>
+</html>
