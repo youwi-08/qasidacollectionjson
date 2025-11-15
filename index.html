@@ -840,6 +840,14 @@
       .then(response => response.json())
       .then(data => {
         poems = data;
+
+        // If user is logged in and has favourites, display them first
+        if (currentUser && userFavorites.size > 0) {
+          const favPoems = poems.filter(poem => userFavorites.has(String(poem.id)));
+          const otherPoems = poems.filter(poem => !userFavorites.has(String(poem.id)));
+          poems = [...favPoems, ...otherPoems];
+        }
+
         renderTagButtons(poems);
         displayPoems(poems);
       })
