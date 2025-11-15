@@ -664,12 +664,12 @@ async function fetchPoems() {
   try {
     const res = await fetch('https://raw.githubusercontent.com/youwi-08/qasidacollectionjson/main/poems-list.json');
     poems = await res.json();
+    
+    // Ensure userFavorites is loaded before rendering
     if (currentUser) {
       await loadFavorites(currentUser.uid);
-      const favPoems = poems.filter(p => userFavorites.has(String(p.id)));
-      const otherPoems = poems.filter(p => !userFavorites.has(String(p.id)));
-      poems = [...favPoems, ...otherPoems];
     }
+
     renderTagButtons();
     filterAndDisplay();
   } catch (err) {
@@ -790,16 +790,18 @@ onAuthStateChanged(auth, async user => {
     userDropdown.style.display = 'inline-block';
     openAuthModalBtn.style.display = 'none';
     userDropdownHeader.textContent = display;
+
+    // Load favourites first, then poems
     await loadFavorites(user.uid);
+    await fetchPoems();
   } else {
     userFavorites.clear();
     currentTag = null;
     userInfo.textContent = '';
     userDropdown.style.display = 'none';
     openAuthModalBtn.style.display = 'inline-block';
+    await fetchPoems();
   }
-  renderTagButtons();
-  fetchPoems();
 });
 
 // ---------------- USER DROPDOWN ----------------
@@ -807,6 +809,6 @@ viewFavoritesBtn.addEventListener('click', () => { currentTag = 'favorites'; fil
 viewProfileBtn.addEventListener('click', () => { alert("Profile feature coming soon!"); });
 dropdownSignOutBtn.addEventListener('click', async () => { await signOut(auth); });
 
-fetchPoems();
+// fetchPoems();  // Removed to ensure poems are only fetched after auth state is determined
   </script>
 </body></html>
