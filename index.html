@@ -754,7 +754,7 @@
 
     function renderTagButtons(poems) {
       tagFilterContainer.innerHTML = '';
-      
+
       // "All" button
       const allBtn = document.createElement('button');
       allBtn.textContent = 'All';
@@ -767,7 +767,7 @@
       });
       tagFilterContainer.appendChild(allBtn);
 
-      // "Favorites" button (only if logged in)
+      // "Favorites" button (always after "All", if logged in)
       if (currentUser) {
         const favBtn = document.createElement('button');
         favBtn.textContent = '★ Favorites';
