@@ -613,14 +613,8 @@ import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/fireb
 import {
   getAuth,
   GoogleAuthProvider,
-  OAuthProvider,
-  signInWithPopup,
   signOut,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  RecaptchaVerifier,
-  signInWithPhoneNumber
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 
 // ---------------- FIREBASE INIT ----------------
@@ -647,6 +641,8 @@ const userDropdown = document.getElementById('userDropdown');
 const userDropdownHeader = document.getElementById('userDropdownHeader');
 const viewFavoritesBtn = document.getElementById('viewFavoritesBtn');
 const darkModeToggle = document.getElementById('darkModeToggle');
+const viewProfileBtn = document.getElementById('viewProfileBtn');
+const dropdownSignOutBtn = document.getElementById('dropdownSignOutBtn');
 
 // ---------------- STATE ----------------
 let poems = [];
@@ -670,7 +666,6 @@ async function fetchPoems() {
     poems = await res.json();
     if (currentUser) {
       await loadFavorites(currentUser.uid);
-      // sort poems: favourites first
       const favPoems = poems.filter(p => userFavorites.has(String(p.id)));
       const otherPoems = poems.filter(p => !userFavorites.has(String(p.id)));
       poems = [...favPoems, ...otherPoems];
@@ -695,11 +690,18 @@ async function loadFavorites(userId) {
   }
 }
 
-async function toggleFavorite(poemId) {
+async function toggleFavorite(poemId, starElement) {
   if (!currentUser) return;
   const idStr = String(poemId);
-  if (userFavorites.has(idStr)) userFavorites.delete(idStr);
-  else userFavorites.add(idStr);
+  if (userFavorites.has(idStr)) {
+    userFavorites.delete(idStr);
+    starElement.textContent = '☆';
+    starElement.classList.remove('active');
+  } else {
+    userFavorites.add(idStr);
+    starElement.textContent = '★';
+    starElement.classList.add('active');
+  }
   try {
     await setDoc(doc(db, "favorites", currentUser.uid), { poems: Array.from(userFavorites) }, { merge: true });
     filterAndDisplay();
@@ -728,7 +730,7 @@ function displayPoems(poemsArray) {
       star.addEventListener('click', e => {
         e.preventDefault();
         e.stopPropagation();
-        toggleFavorite(poem.id);
+        toggleFavorite(poem.id, star);
       });
       a.appendChild(star);
     }
@@ -737,17 +739,9 @@ function displayPoems(poemsArray) {
   });
 }
 
-function getUniqueTags() {
-  const tags = new Set();
-  poems.forEach(p => Array.isArray(p.tags) && p.tags.forEach(t => tags.add(t)));
-  return Array.from(tags).sort((a, b) => a.localeCompare(b));
-}
-
 // ---------------- FILTER BUTTONS ----------------
 function renderTagButtons() {
   tagFilterContainer.innerHTML = '';
-
-  // All
   const allBtn = document.createElement('button');
   allBtn.textContent = 'All';
   allBtn.className = 'filter-button';
@@ -755,7 +749,6 @@ function renderTagButtons() {
   allBtn.addEventListener('click', () => { currentTag = null; filterAndDisplay(); renderTagButtons(); });
   tagFilterContainer.appendChild(allBtn);
 
-  // Favorites
   if (currentUser) {
     const favBtn = document.createElement('button');
     favBtn.textContent = '★ Favorites';
@@ -765,8 +758,9 @@ function renderTagButtons() {
     tagFilterContainer.appendChild(favBtn);
   }
 
-  // Tags
-  getUniqueTags().forEach(tag => {
+  const tags = new Set();
+  poems.forEach(p => Array.isArray(p.tags) && p.tags.forEach(t => tags.add(t)));
+  Array.from(tags).sort((a,b)=>a.localeCompare(b)).forEach(tag => {
     const btn = document.createElement('button');
     btn.textContent = tag;
     btn.className = 'filter-button';
@@ -779,13 +773,9 @@ function renderTagButtons() {
 function filterAndDisplay() {
   let result = [...poems];
   const term = searchInput.value.trim().toLowerCase();
-
   if (currentTag === 'favorites') result = result.filter(p => userFavorites.has(String(p.id)));
   else if (currentTag) result = result.filter(p => Array.isArray(p.tags) && p.tags.includes(currentTag));
-
-  if (term) {
-    result = result.filter(p => p.title?.toLowerCase().includes(term) || (Array.isArray(p.tags) && p.tags.some(t => t.toLowerCase().includes(term))));
-  }
+  if (term) result = result.filter(p => p.title?.toLowerCase().includes(term) || (Array.isArray(p.tags) && p.tags.some(t => t.toLowerCase().includes(term))));
   displayPoems(result);
 }
 
@@ -812,8 +802,10 @@ onAuthStateChanged(auth, async user => {
   fetchPoems();
 });
 
-// Favorites dropdown button
+// ---------------- USER DROPDOWN ----------------
 viewFavoritesBtn.addEventListener('click', () => { currentTag = 'favorites'; filterAndDisplay(); renderTagButtons(); });
+viewProfileBtn.addEventListener('click', () => { alert("Profile feature coming soon!"); });
+dropdownSignOutBtn.addEventListener('click', async () => { await signOut(auth); });
 
 fetchPoems();
   </script>
