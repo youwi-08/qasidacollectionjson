@@ -642,6 +642,69 @@
     const tagFilterContainer = document.getElementById('tag-filter-container');
     const searchInput = document.getElementById('searchInput');
 
+    // ----------------- FAVOURITES FUNCTIONALITY -----------------
+
+    async function loadFavorites(userId) {
+      if (!userId) {
+        userFavorites.clear();
+        return;
+      }
+
+      try {
+        const docRef = doc(db, "favorites", userId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          // Ensure all IDs are strings to match poem.id
+          userFavorites = new Set((data.poems || []).map(String));
+        } else {
+          userFavorites.clear();
+        }
+
+        // Refresh display after loading favourites
+        renderTagButtons(poems);
+        // Automatically show favourites filter after login
+        currentTag = 'favorites';
+        highlightTagButton('favorites');
+        filterAndDisplay();
+
+      } catch (error) {
+        console.error('Error loading favorites:', error);
+        userFavorites.clear();
+      }
+    }
+
+    async function toggleFavorite(poemId, starElement) {
+      if (!currentUser) return;
+
+      const idStr = String(poemId); // ensure consistent type
+      try {
+        if (userFavorites.has(idStr)) {
+          userFavorites.delete(idStr);
+          starElement.textContent = '☆';
+          starElement.classList.remove('active');
+        } else {
+          userFavorites.add(idStr);
+          starElement.textContent = '★';
+          starElement.classList.add('active');
+        }
+
+        // Save with merge to prevent overwriting other data
+        await setDoc(doc(db, "favorites", currentUser.uid), {
+          poems: Array.from(userFavorites),
+          updatedAt: new Date().toISOString()
+        }, { merge: true });
+
+        // Refresh display if viewing favourites filter
+        if (currentTag === 'favorites') {
+          filterAndDisplay();
+        }
+
+      } catch (error) {
+        console.error('Error updating favorites:', error);
+      }
+    }
+
     function displayPoems(poemsArray) {
       container.innerHTML = '';
       let poemsToDisplay = poemsArray;
@@ -649,80 +712,34 @@
       if (isHomePage) {
         poemsToDisplay = poemsArray.filter(poem => poem.id !== 'index');
       }
+
       poemsToDisplay.forEach(poem => {
         const a = document.createElement('a');
         a.className = 'poem-button';
         a.href = poem.file;
-        
+
         const titleSpan = document.createElement('span');
         titleSpan.textContent = poem.title;
         a.appendChild(titleSpan);
 
-        // Add favorite star if user is logged in
         if (currentUser) {
           const star = document.createElement('span');
           star.className = 'favorite-star';
-          star.textContent = userFavorites.has(poem.id) ? '★' : '☆';
-          if (userFavorites.has(poem.id)) {
-            star.classList.add('active');
-          }
-          
+          const idStr = String(poem.id);
+          star.textContent = userFavorites.has(idStr) ? '★' : '☆';
+          if (userFavorites.has(idStr)) star.classList.add('active');
+
           star.addEventListener('click', async (e) => {
             e.preventDefault();
             e.stopPropagation();
             await toggleFavorite(poem.id, star);
           });
-          
+
           a.appendChild(star);
         }
-        
+
         container.appendChild(a);
       });
-    }
-
-    async function toggleFavorite(poemId, starElement) {
-      if (!currentUser) return;
-      
-      try {
-        if (userFavorites.has(poemId)) {
-          userFavorites.delete(poemId);
-          starElement.textContent = '☆';
-          starElement.classList.remove('active');
-        } else {
-          userFavorites.add(poemId);
-          starElement.textContent = '★';
-          starElement.classList.add('active');
-        }
-        
-        // Save to Firestore
-        await setDoc(doc(db, "favorites", currentUser.uid), {
-          poems: Array.from(userFavorites),
-          updatedAt: new Date().toISOString()
-        });
-      } catch (error) {
-        console.error('Error updating favorites:', error);
-      }
-    }
-
-    async function loadFavorites(userId) {
-      if (!userId) {
-        userFavorites.clear();
-        return;
-      }
-      
-      try {
-        const docRef = doc(db, "favorites", userId);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          userFavorites = new Set(data.poems || []);
-        } else {
-          userFavorites.clear();
-        }
-      } catch (error) {
-        console.error('Error loading favorites:', error);
-        userFavorites.clear();
-      }
     }
 
     function getUniqueTags(poems) {
@@ -1138,11 +1155,29 @@
       }
     });
 
+    // ----------------- AUTH STATE CHANGE -----------------
     onAuthStateChanged(auth, async (user) => {
-      console.log('Auth state changed:', user ? 'User signed in' : 'User signed out');
-      await updateAuthUI(user);
-      if (user && authModal.style.display !== 'none') {
-        authModal.style.display = 'none';
+      currentUser = user;
+
+      if (user) {
+        // Show user info and hide sign-in button
+        let display = user.displayName || user.email || user.phoneNumber || "User";
+        userInfo.textContent = `Signed in as ${display}`;
+        openAuthModalBtn.style.display = 'none';
+        userDropdown.style.display = 'inline-block';
+        userDropdownHeader.textContent = display;
+
+        // Load favourites for the logged-in user
+        await loadFavorites(user.uid);
+      } else {
+        userFavorites.clear();
+        currentUser = null;
+        userInfo.textContent = '';
+        openAuthModalBtn.style.display = 'inline-block';
+        userDropdown.style.display = 'none';
+        currentTag = currentTag === 'favorites' ? null : currentTag;
+        renderTagButtons(poems);
+        filterAndDisplay();
       }
     });
 
