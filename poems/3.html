@@ -469,6 +469,60 @@ body.dark-mode #shareMenu button:hover {
     body.dark-mode .chorus-box::after {
       color: #53a2a9;
     }
+    /* --- TAG FILTER SYSTEM --- */
+
+#tagFilterContainer {
+  width: 100%;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 6px;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.filter-button {
+  display: inline-block;
+  margin: 0 6px 6px 0;
+  padding: 6px 16px;
+  border-radius: 18px;
+  background-color: #e0e9e3;
+  color: #256328;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  outline: none;
+  font-family: inherit;
+  box-shadow: 0 1px 3px rgba(37,99,40,0.05);
+}
+
+.filter-button.active,
+.filter-button:focus {
+  background-color: #256328;
+  color: #fff;
+}
+
+.filter-button:hover:not(.active) {
+  background-color: #c8dbcf;
+}
+
+/* Dark mode */
+body.dark-mode .filter-button {
+  background-color: #2a3f2d;
+  color: #53A2A9;
+}
+
+body.dark-mode .filter-button.active,
+body.dark-mode .filter-button:focus {
+  background-color: #53A2A9;
+  color: #1e1e1e;
+}
+
+body.dark-mode .filter-button:hover:not(.active) {
+  background-color: #256328;
+  color: #fff;
+}
   </style>
 </head>
 <body>
@@ -479,6 +533,7 @@ body.dark-mode #shareMenu button:hover {
         id="searchInput" 
         placeholder="🔍 Search"
       />
+      <div id="tagFilterContainer"></div>
       <ul id="poemList">
 
       </ul>
@@ -809,6 +864,112 @@ document.getElementById("searchInput").addEventListener("input", (e) => {
 
 // 🔑 Call this so poems appear initially
 loadPoems();
+/* --- TAG FILTER SYSTEM --- */
+
+let currentTag = "All";
+let searchTerm = "";
+
+// Extract all unique tags in alphabetical order
+function getUniqueTags(poemArr) {
+  const tagSet = new Set();
+  poemArr.forEach(poem => {
+    if (Array.isArray(poem.tags)) {
+      poem.tags.forEach(tag => {
+        if (tag) tagSet.add(tag.trim());
+      });
+    }
+  });
+  return Array.from(tagSet).sort((a, b) =>
+    a.localeCompare(b, "ar", { sensitivity: "base" })
+  );
+}
+
+// Render filter buttons
+function renderTagFilters(tags) {
+  const container = document.getElementById("tagFilterContainer");
+  container.innerHTML = "";
+
+  const allBtn = document.createElement("button");
+  allBtn.textContent = "All";
+  allBtn.className = "filter-button";
+  allBtn.dataset.tag = "All";
+  container.appendChild(allBtn);
+
+  tags.forEach(tag => {
+    const btn = document.createElement("button");
+    btn.textContent = tag;
+    btn.className = "filter-button";
+    btn.dataset.tag = tag;
+    container.appendChild(btn);
+  });
+
+  setActiveTagButton(currentTag);
+}
+
+// Highlight selected tag
+function setActiveTagButton(tag) {
+  document.querySelectorAll("#tagFilterContainer .filter-button").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.tag === tag);
+  });
+}
+
+// Unified filtering: tags + search
+function getFilteredPoems() {
+  return poems.filter(poem => {
+    if (currentTag !== "All") {
+      if (!poem.tags || !poem.tags.includes(currentTag)) return false;
+    }
+
+    if (searchTerm) {
+      const st = searchTerm.toLowerCase();
+      if (poem.title?.toLowerCase().includes(st)) return true;
+      if (poem.tags?.some(tag => tag.toLowerCase().includes(st))) return true;
+      if (poem.file?.toLowerCase().includes(st)) return true;
+      if (String(poem.id).toLowerCase().includes(st)) return true;
+      return false;
+    }
+
+    return true;
+  });
+}
+
+// Tag button click logic
+function attachTagFilterEvents() {
+  const container = document.getElementById("tagFilterContainer");
+  container.addEventListener("click", e => {
+    if (e.target.classList.contains("filter-button")) {
+      const tag = e.target.dataset.tag;
+      currentTag = tag;
+      setActiveTagButton(currentTag);
+      displayPoems(getFilteredPoems());
+    }
+  });
+}
+
+// Modify search input to use unified filtering
+document.getElementById("searchInput").addEventListener("input", e => {
+  searchTerm = e.target.value.trim();
+  displayPoems(getFilteredPoems());
+});
+
+// Replace your loadPoems() with this version:
+async function loadPoems() {
+  try {
+    const res = await fetch("https://raw.githubusercontent.com/youwi-08/qasidacollectionjson/main/poems-list.json");
+    if (!res.ok) throw new Error("Failed to load poems list");
+
+    poems = await res.json();
+    const tags = getUniqueTags(poems);
+    renderTagFilters(tags);
+    displayPoems(getFilteredPoems());
+    attachTagFilterEvents();
+  } catch (err) {
+    document.getElementById("poemList").innerHTML =
+      "<li>تعذر تحميل قائمة القصائد</li>";
+  }
+}
+
+/* --- END TAG FILTER SYSTEM --- */
   </script>
 </body>
 </html>
