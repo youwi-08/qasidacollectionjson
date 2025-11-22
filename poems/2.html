@@ -144,17 +144,17 @@
     }
     @font-face {
       font-family: "Diwan Thuluth";
-      src: url("/fonts/DiwanThuluth.ttf") format("truetype");
+      src: url("fonts/DiwanThuluth.ttf") format("truetype");
     }
 
     @font-face {
       font-family: "Al Tarikh";
-      src: url("/fonts/AlTarikh.ttc") format("truetype");
+      src: url("fonts/Al Tarikh.ttf") format("truetype");
     }
 
     @font-face {
       font-family: "Al Bayan";
-      src: url("/fonts/Al Bayan.ttc") format("truetype");
+      src: url("fonts/Al Bayan.ttf") format("truetype");
     }
 
     h1 {
@@ -286,6 +286,52 @@ body {
       color: #e0e0e0;
       border: 1px solid #555;
     }
+
+#tagFilterContainer {
+  width: 100%;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 6px;
+  text-align: left;
+  box-sizing: border-box;
+}
+.filter-button {
+  display: inline-block;
+  margin: 0 6px 6px 0;
+  padding: 6px 16px;
+  border-radius: 18px;
+  background-color: #e0e9e3;
+  color: #256328;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  outline: none;
+  font-family: inherit;
+  box-shadow: 0 1px 3px rgba(37,99,40,0.05);
+}
+.filter-button.active,
+.filter-button:focus {
+  background-color: #256328;
+  color: #fff;
+}
+.filter-button:hover:not(.active) {
+  background-color: #c8dbcf;
+}
+body.dark-mode .filter-button {
+  background-color: #2a3f2d;
+  color: #53A2A9;
+}
+body.dark-mode .filter-button.active,
+body.dark-mode .filter-button:focus {
+  background-color: #53A2A9;
+  color: #1e1e1e;
+}
+body.dark-mode .filter-button:hover:not(.active) {
+  background-color: #256328;
+  color: #fff;
+}
 
 /* Dark mode for nav-pane */
 body.dark-mode .nav-pane {
@@ -479,6 +525,7 @@ body.dark-mode #shareMenu button:hover {
         id="searchInput" 
         placeholder="🔍 Search"
       />
+      <div id="tagFilterContainer"></div>
       <ul id="poemList">
 
       </ul>
@@ -763,67 +810,122 @@ body.dark-mode #shareMenu button:hover {
     });
   });
     let poems = [];
+    let currentTag = "All";
+    let searchTerm = "";
 
-    async function loadPoems() {
-      try {
-        const response = await fetch('https://raw.githubusercontent.com/youwi-08/qasidacollectionjson/main/poems-list.json');
-        if (!response.ok) throw new Error('Failed to load poems list');
-        poems = await response.json();
-        displayPoems(poems);
-      } catch (err) {
-        // fallback: show error in nav
-        const list = document.getElementById("poemList");
-        list.innerHTML = "<li>تعذر تحميل قائمة القصائد</li>";
-      }
+    function getUniqueTags(poemArr) {
+      const tagSet = new Set();
+      poemArr.forEach(poem => {
+        if (Array.isArray(poem.tags)) {
+          poem.tags.forEach(tag => {
+            if (tag && typeof tag === "string") tagSet.add(tag.trim());
+          });
+        }
+      });
+      return Array.from(tagSet).sort((a, b) =>
+        a.localeCompare(b, "ar", { sensitivity: "base" })
+      );
+    }
+
+    function renderTagFilters(tags) {
+      const container = document.getElementById("tagFilterContainer");
+      container.innerHTML = "";
+
+      const allBtn = document.createElement("button");
+      allBtn.textContent = "All";
+      allBtn.className = "filter-button";
+      allBtn.dataset.tag = "All";
+      container.appendChild(allBtn);
+
+      tags.forEach(tag => {
+        const btn = document.createElement("button");
+        btn.textContent = tag;
+        btn.className = "filter-button";
+        btn.dataset.tag = tag;
+        container.appendChild(btn);
+      });
+
+      setActiveTagButton(currentTag);
+    }
+
+    function setActiveTagButton(tag) {
+      document
+        .querySelectorAll("#tagFilterContainer .filter-button")
+        .forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.tag === tag);
+        });
+    }
+
+    function getFilteredPoems() {
+      return poems.filter(poem => {
+        if (currentTag !== "All") {
+          if (!poem.tags || !poem.tags.includes(currentTag)) return false;
+        }
+
+        if (searchTerm) {
+          const st = searchTerm.toLowerCase();
+          if (poem.title?.toLowerCase().includes(st)) return true;
+          if (poem.tags?.some(tag => tag.toLowerCase().includes(st))) return true;
+          if (poem.file?.toLowerCase().includes(st)) return true;
+          if (String(poem.id).toLowerCase().includes(st)) return true;
+          return false;
+        }
+
+        return true;
+      });
     }
 
     function displayPoems(poemArray) {
       const list = document.getElementById("poemList");
       list.innerHTML = "";
-      poemArray.forEach((poem) => {
+      poemArray.forEach(poem => {
         const li = document.createElement("li");
         const a = document.createElement("a");
         a.textContent = poem.title;
-        // Remove leading 'poems/' if present to avoid duplication
         let href = poem.file;
-        if (href.startsWith("poems/")) {
-          href = href.slice("poems/".length);
-        }
+        if (href.startsWith("poems/")) href = href.slice("poems/".length);
         a.href = href;
         li.appendChild(a);
         list.appendChild(li);
       });
     }
 
-document.getElementById("searchInput").addEventListener("input", (e) => {
-  const searchTerm = e.target.value.trim().toLowerCase();
+    async function loadPoems() {
+      try {
+        const res = await fetch("https://raw.githubusercontent.com/youwi-08/qasidacollectionjson/main/poems-list.json");
+        if (!res.ok) throw new Error("Failed to load poems list");
 
-  // if empty, show all poems
-  if (!searchTerm) {
-    displayPoems(poems);
-    return;
-  }
+        poems = await res.json();
+        const tags = getUniqueTags(poems);
+        renderTagFilters(tags);
+        displayPoems(getFilteredPoems());
+        attachTagFilterEvents();
+      } catch (err) {
+        document.getElementById("poemList").innerHTML =
+          "<li>تعذر تحميل قائمة القصائد</li>";
+      }
+    }
 
-  const filtered = poems.filter(poem => {
-    // 1) check title
-    if (poem.title && poem.title.toLowerCase().includes(searchTerm)) return true;
+    function attachTagFilterEvents() {
+      const container = document.getElementById("tagFilterContainer");
+      container.addEventListener("click", e => {
+        if (e.target.classList.contains("filter-button")) {
+          const tag = e.target.dataset.tag;
+          if (tag !== currentTag) {
+            currentTag = tag;
+            setActiveTagButton(currentTag);
+            displayPoems(getFilteredPoems());
+          }
+        }
+      });
+    }
 
-    // 2) check tags (if present)
-    if (Array.isArray(poem.tags) &&
-        poem.tags.some(tag => tag.toLowerCase().includes(searchTerm))) return true;
+    document.getElementById("searchInput").addEventListener("input", e => {
+      searchTerm = e.target.value.trim();
+      displayPoems(getFilteredPoems());
+    });
 
-    // 3) optional: allow searching file or id
-    if (poem.file && poem.file.toLowerCase().includes(searchTerm)) return true;
-    if (poem.id && String(poem.id).toLowerCase().includes(searchTerm)) return true;
-
-    return false;
-  });
-
-  displayPoems(filtered);
-});
-
-// 🔑 Call this so poems appear initially
-loadPoems();
+    loadPoems();
   </script>
 </body>
 </html>
