@@ -308,6 +308,33 @@ body.dark-mode .chorus-box::after {
   color: #53A2A9;
 }
 
+body.dark-mode .nav-pane {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  box-shadow: 0 4px 10px rgba(255,255,255,0.1);
+}
+
+body.dark-mode .nav-pane a {
+  color: #53A2A9;
+  background: transparent;
+}
+
+body.dark-mode .nav-pane a:hover,
+body.dark-mode .nav-pane a.active {
+  background: #53A2A9;
+  color: #1e1e1e;
+}
+
+body.dark-mode #searchInput {
+  background-color: #2b2b2b;
+  color: #e0e0e0;
+  border: 1px solid #53A2A9;
+}
+
+body.dark-mode #searchInput::placeholder {
+  color: #7fbfc1;
+}
+
 /* ------------------ Responsive ------------------ */
 @media (max-width: 768px) {
   .nav-pane {
