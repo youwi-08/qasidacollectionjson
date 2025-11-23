@@ -874,22 +874,29 @@
       return Array.from({ length }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
     }
 
-    createRoomBtn.addEventListener('click', async () => {
-      const roomCode = generateRoomCode();
+createRoomBtn.addEventListener('click', async () => {
+  if (!currentUser) {
+    currentRoomInfo.textContent = '⚠ You must be signed in to create a room.';
+    currentRoomInfo.style.color = '#d9534f';
+    return;
+  }
 
-      try {
-        await setDoc(doc(db, "rooms", roomCode), {
-          createdAt: new Date().toISOString()
-        });
-        window.location.href = '/room-admin?room=' + encodeURIComponent(roomCode);
-      } catch (error) {
-        console.error('Error creating room:', error);
-        currentRoomInfo.textContent = 'Failed to create room. Check console for details.';
-      }
+  const roomCode = generateRoomCode();
 
-      createRoomOptions.style.display = createRoomVisible ? 'none' : 'block';
-      createRoomVisible = !createRoomVisible;
+  try {
+    await setDoc(doc(db, "rooms", roomCode), {
+      createdAt: new Date().toISOString()
     });
+    window.location.href = '/room-admin?room=' + encodeURIComponent(roomCode);
+  } catch (error) {
+    console.error('Error creating room:', error);
+    currentRoomInfo.textContent = 'Failed to create room. Check console for details.';
+    currentRoomInfo.style.color = '#d9534f';
+  }
+
+  createRoomOptions.style.display = createRoomVisible ? 'none' : 'block';
+  createRoomVisible = !createRoomVisible;
+});
 
     async function verifyRoom(roomCode) {
       if (!roomCode) return;
