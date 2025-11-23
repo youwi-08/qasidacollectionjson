@@ -40,18 +40,20 @@ applyAlternateLineColour();
 
   applySystemPreference();
 
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    if(!toggleButton.dataset.manualToggle) {
-      document.body.classList.toggle(darkModeClass, e.matches);
-      applyAlternateLineColour();
-    }
-  });
+  if (toggleButton) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if(!toggleButton.dataset.manualToggle) {
+        document.body.classList.toggle(darkModeClass, e.matches);
+        applyAlternateLineColour();
+      }
+    });
 
-  toggleButton.addEventListener('click', () => {
-    document.body.classList.toggle(darkModeClass);
-    toggleButton.dataset.manualToggle = 'true';
-    applyAlternateLineColour();
-  });
+    toggleButton.addEventListener('click', () => {
+      document.body.classList.toggle(darkModeClass);
+      toggleButton.dataset.manualToggle = 'true';
+      applyAlternateLineColour();
+    });
+  }
 })();
 
 // ------------------ Hamburger Menu ------------------
@@ -59,36 +61,46 @@ applyAlternateLineColour();
   const hamburgerButton = document.getElementById('hamburgerButton');
   const navPane = document.getElementById('navPane');
 
-  hamburgerButton.addEventListener('click', e => {
-    e.stopPropagation();
-    navPane.classList.toggle('show');
-  });
+  if (hamburgerButton && navPane) {
+    hamburgerButton.addEventListener('click', e => {
+      e.stopPropagation();
+      navPane.classList.toggle('show');
+    });
 
-  document.addEventListener('click', () => navPane.classList.remove('show'));
-  navPane.addEventListener('click', e => e.stopPropagation());
+    document.addEventListener('click', () => navPane.classList.remove('show'));
+    navPane.addEventListener('click', e => e.stopPropagation());
+  }
 })();
 
 // ------------------ Translation / Transliteration Toggle ------------------
-document.getElementById("translationToggle").addEventListener("click", () => {
-  document.querySelectorAll(".container .translation").forEach(el => {
-    el.style.display = (el.style.display === "none" || el.style.display === "") ? "block" : "none";
+const translationToggle = document.getElementById("translationToggle");
+if (translationToggle) {
+  translationToggle.addEventListener("click", () => {
+    document.querySelectorAll(".container .translation").forEach(el => {
+      el.style.display = (el.style.display === "none" || el.style.display === "") ? "block" : "none";
+    });
   });
-});
-document.getElementById("transliterationToggle").addEventListener("click", () => {
-  document.querySelectorAll(".container .transliteration").forEach(el => {
-    el.style.display = (el.style.display === "none" || el.style.display === "") ? "block" : "none";
+}
+const transliterationToggle = document.getElementById("transliterationToggle");
+if (transliterationToggle) {
+  transliterationToggle.addEventListener("click", () => {
+    document.querySelectorAll(".container .transliteration").forEach(el => {
+      el.style.display = (el.style.display === "none" || el.style.display === "") ? "block" : "none";
+    });
   });
-});
+}
 
 // ------------------ Share Menu ------------------
 (function() {
   const shareButton = document.getElementById('shareButton');
   const shareMenu = document.getElementById('shareMenu');
 
-  shareButton.addEventListener('click', e => {
-    e.stopPropagation();
-    shareMenu.style.display = (shareMenu.style.display === 'flex') ? 'none' : 'flex';
-  });
+  if (shareButton && shareMenu) {
+    shareButton.addEventListener('click', e => {
+      e.stopPropagation();
+      shareMenu.style.display = (shareMenu.style.display === 'flex') ? 'none' : 'flex';
+    });
 
-  document.addEventListener('click', () => shareMenu.style.display = 'none');
+    document.addEventListener('click', () => shareMenu.style.display = 'none');
+  }
 })();
