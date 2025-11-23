@@ -104,3 +104,75 @@ if (transliterationToggle) {
     document.addEventListener('click', () => shareMenu.style.display = 'none');
   }
 })();
+
+// ------------------ Load Poems List and Search/Filter ------------------
+(function() {
+  const poemListElement = document.getElementById('poemList');
+  if (!poemListElement) return;
+
+  let poems = [];
+  let filteredPoems = [];
+
+  const searchInput = document.getElementById('searchInput');
+  const tagFilter = document.getElementById('tagFilter');
+
+  function renderPoemList(list) {
+    poemListElement.innerHTML = '';
+    if (list.length === 0) {
+      const li = document.createElement('li');
+      li.textContent = 'No poems found.';
+      poemListElement.appendChild(li);
+      return;
+    }
+    list.forEach(poem => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = poem.url || '#';
+      a.textContent = poem.title || 'Untitled';
+      li.appendChild(a);
+      poemListElement.appendChild(li);
+    });
+  }
+
+  function filterPoems() {
+    let filtered = poems;
+
+    const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    if (searchTerm) {
+      filtered = filtered.filter(poem => {
+        return (poem.title && poem.title.toLowerCase().includes(searchTerm)) ||
+               (poem.author && poem.author.toLowerCase().includes(searchTerm)) ||
+               (poem.tags && poem.tags.some(tag => tag.toLowerCase().includes(searchTerm)));
+      });
+    }
+
+    if (tagFilter && tagFilter.value) {
+      const selectedTag = tagFilter.value.toLowerCase();
+      filtered = filtered.filter(poem => poem.tags && poem.tags.some(tag => tag.toLowerCase() === selectedTag));
+    }
+
+    filteredPoems = filtered;
+    renderPoemList(filteredPoems);
+  }
+
+  fetch('../poems-list.json')
+    .then(response => {
+      if (!response.ok) throw new Error('Failed to load poems list');
+      return response.json();
+    })
+    .then(data => {
+      poems = Array.isArray(data) ? data : [];
+      renderPoemList(poems);
+    })
+    .catch(err => {
+      poemListElement.innerHTML = '<li>Could not load poems list.</li>';
+      console.error(err);
+    });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', filterPoems);
+  }
+  if (tagFilter) {
+    tagFilter.addEventListener('change', filterPoems);
+  }
+})();
