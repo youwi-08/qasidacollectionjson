@@ -10,6 +10,19 @@
   <script src="../main.js" defer></script>
 </head>
 <body>
+  <div class="page-controls">
+    <button id="translationToggle" class="button">Toggle Translation</button>
+    <button id="transliterationToggle" class="button">Toggle Transliteration</button>
+    <button id="darkModeToggle" class="button">Toggle Dark Mode</button>
+    <button onclick="changeFontSize(1)" class="button">A+</button>
+    <button onclick="changeFontSize(-1)" class="button">A-</button>
+    <button id="shareButton" class="button">Share</button>
+    <div id="shareMenu" style="display:none;">
+      <button id="copyLinkButton" class="button">نسخ الرابط</button>
+      <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
+      <button id="telegramShareButton" class="button">المشاركة على تيليجرام</button>
+    </div>
+  </div>
   <div class="page-layout">
     <nav class="nav-pane" id="navPane">
       <input type="text" id="searchInput" placeholder="🔍 Search" />
@@ -56,11 +69,5 @@
     </div>
   </div>
 
-  <!-- Share Menu -->
-  <div id="shareMenu" role="menu" aria-hidden="true">
-    <button id="copyLinkButton">نسخ الرابط</button>
-    <button id="whatsappShareButton">المشاركة على واتساب</button>
-    <button id="telegramShareButton">المشاركة على تيليجرام</button>
-  </div>
 </body>
 </html>
