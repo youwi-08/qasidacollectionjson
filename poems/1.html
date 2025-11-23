@@ -8,6 +8,17 @@
   <link rel="stylesheet" href="../style.css">
   <!-- Link external JS -->
   <script src="../main.js" defer></script>
+  <style>
+    .page-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-controls-left, .page-controls-right {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
 </head>
 <body>
   <div class="page-layout">
@@ -19,9 +30,9 @@
     <div class="container" data-poem-id="1">
       <div class="page-controls-bar">
         <div class="page-controls-left">
-          <button id="translationToggle" class="button">Toggle Translation</button>
-          <button id="transliterationToggle" class="button">Toggle Transliteration</button>
-          <button id="shareButton" class="button">Share</button>
+          <button id="translationToggle" class="button">🌐</button>
+          <button id="transliterationToggle" class="button">🔤</button>
+          <button id="shareButton" class="button">📤</button>
           <div id="shareMenu" style="display:none;">
             <button id="copyLinkButton" class="button">نسخ الرابط</button>
             <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
@@ -29,9 +40,9 @@
           </div>
         </div>
         <div class="page-controls-right">
-          <button onclick="changeFontSize(1)" class="button">A+</button>
-          <button onclick="changeFontSize(-1)" class="button">A-</button>
-          <button id="darkModeToggle" class="button">Toggle Dark Mode</button>
+          <button onclick="changeFontSize(1)" class="button">+</button>
+          <button onclick="changeFontSize(-1)" class="button">-</button>
+          <button id="darkModeToggle" class="button">🌓</button>
         </div>
       </div>
       <h1>يا إمام الرسل</h1>
@@ -65,7 +76,7 @@
       <p class="alt">صَــفْــوَةُ الْــبَــارِي وَخِــيــرَتُــهُ ۝ عَــدْلُ أَهْــلِ الْــحِــلِ وَالْــحَــرَمِ</p>
       <div class="transliteration">Ṣafwatul-bārī wā khīratuhu ۝ ‘Adlu ahlil-ḥilli wāl-ḥarami</div>
 
-      <p>مَــا رَأَتْ عَــيْــنُ وَلَــيْــسَ تَــرَى ۝ مِــثْــلَ طَــهَ فِــي الْــوَرَى بَــشَــرَا</p>
+      <p>مَــا رَأَتْ عَــيْنُ وَلَــيْــسَ تَــرَى ۝ مِــثْــلَ طَــهَ فِــي الْــوَرَى بَــشَــرَا</p>
       <div class="transliteration">Mā ra’at ‘aynūn walaysa tarā ۝ Mithla ṭaha fīl-warā bashara</div>
       <p>خَــيْــرُ مَــنْ فَــوْقَ الــثَّــرَى أَثَــرَا ۝ طَــاهِــرُ الْأَخْــلَاقِ وَالــشَّــيَــمِ</p>
       <div class="transliteration"> Khayru Man Fawqāl-tharā atharā ۝ Ṭahirul-akhlāqī wāsh-shaymī</div>
