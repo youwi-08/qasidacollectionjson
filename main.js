@@ -127,7 +127,7 @@ if (transliterationToggle) {
     list.forEach(poem => {
       const li = document.createElement('li');
       const a = document.createElement('a');
-      a.href = poem.url || '#';
+      a.href = poem.file ? new URL(poem.file, window.location.origin).href : '#';
       a.textContent = poem.title || 'Untitled';
       li.appendChild(a);
       poemListElement.appendChild(li);
