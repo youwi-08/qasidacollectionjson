@@ -266,55 +266,23 @@ h1 {
   outline: none;
 }
 
-        /* Filter tag buttons container and button styles */
-    #tagFilterContainer {
-      width: 100%;
-      margin-bottom: 20px;
-      overflow-x: auto;
-      white-space: nowrap;
-      padding-bottom: 6px;
-      text-align: left;
-      box-sizing: border-box;
-    }
-    .filter-button {
-      display: inline-block;
-      margin: 0 6px 6px 0;
-      padding: 6px 16px;
-      border-radius: 18px;
-      background-color: #e0e9e3;
-      color: #256328;
-      border: none;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      outline: none;
-      font-family: inherit;
-      box-shadow: 0 1px 3px rgba(37,99,40,0.05);
-    }
-    .filter-button.active,
-    .filter-button:focus {
-      background-color: #256328;
-      color: #fff;
-    }
-    .filter-button:hover:not(.active) {
-      background-color: #c8dbcf;
-    }
-
-    body.dark-mode #tagFilterContainer {
-      background: transparent;
-    }
-    body.dark-mode .filter-button {
-      background-color: #2a3f2d;
-      color: #53A2A9;
-    }
-    body.dark-mode .filter-button.active,
-    body.dark-mode .filter-button:focus {
-      background-color: #53A2A9;
-      color: #1e1e1e;
-    }
-    body.dark-mode .filter-button:hover:not(.active) {
-      background-color: #256328;
-      color: #fff;
+/* ------------------ Dark Mode ------------------ */
+body.dark-mode #tagFilterContainer {
+  background: transparent;
+}
+body.dark-mode .filter-button {
+  background-color: #2a3f2d;
+  color: #53A2A9;
+}
+body.dark-mode .filter-button.active,
+body.dark-mode .filter-button:focus {
+  background-color: #53A2A9;
+  color: #1e1e1e;
+}
+body.dark-mode .filter-button:hover:not(.active) {
+  background-color: #256328;
+  color: #fff;
+}
 
 /* ------------------ Dark Mode ------------------ */
 body.dark-mode {
