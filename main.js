@@ -114,7 +114,42 @@ if (transliterationToggle) {
   let filteredPoems = [];
 
   const searchInput = document.getElementById('searchInput');
-  const tagFilter = document.getElementById('tagFilter');
+  const tagFilterContainer = document.getElementById('tagFilterContainer');
+
+  function createTagFilters() {
+    if (!tagFilterContainer) return;
+
+    const allTags = new Set();
+    poems.forEach(poem => {
+      if (poem.tags) poem.tags.forEach(tag => allTags.add(tag));
+    });
+
+    tagFilterContainer.innerHTML = '';
+
+    const allButton = document.createElement('button');
+    allButton.textContent = 'All';
+    allButton.dataset.tag = '';
+    allButton.className = 'tag-button active';
+    tagFilterContainer.appendChild(allButton);
+
+    allTags.forEach(tag => {
+      const button = document.createElement('button');
+      button.textContent = tag;
+      button.dataset.tag = tag.toLowerCase();
+      button.className = 'tag-button';
+      tagFilterContainer.appendChild(button);
+    });
+
+    tagFilterContainer.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        tagFilterContainer.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const selectedTag = btn.dataset.tag;
+        filterPoems(selectedTag);
+      });
+    });
+  }
 
   function renderPoemList(list) {
     poemListElement.innerHTML = '';
@@ -134,7 +169,7 @@ if (transliterationToggle) {
     });
   }
 
-  function filterPoems() {
+  function filterPoems(selectedTag = '') {
     let filtered = poems;
 
     const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
@@ -146,9 +181,10 @@ if (transliterationToggle) {
       });
     }
 
-    if (tagFilter && tagFilter.value) {
-      const selectedTag = tagFilter.value.toLowerCase();
-      filtered = filtered.filter(poem => poem.tags && poem.tags.some(tag => tag.toLowerCase() === selectedTag));
+    if (selectedTag) {
+      filtered = filtered.filter(poem =>
+        poem.tags && poem.tags.some(tag => tag.toLowerCase() === selectedTag)
+      );
     }
 
     filteredPoems = filtered;
@@ -163,6 +199,7 @@ if (transliterationToggle) {
     .then(data => {
       poems = Array.isArray(data) ? data : [];
       renderPoemList(poems);
+      createTagFilters();
     })
     .catch(err => {
       poemListElement.innerHTML = '<li>Could not load poems list.</li>';
@@ -171,8 +208,5 @@ if (transliterationToggle) {
 
   if (searchInput) {
     searchInput.addEventListener('input', filterPoems);
-  }
-  if (tagFilter) {
-    tagFilter.addEventListener('change', filterPoems);
   }
 })();
