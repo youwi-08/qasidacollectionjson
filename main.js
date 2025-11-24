@@ -129,14 +129,14 @@ if (transliterationToggle) {
     const allButton = document.createElement('button');
     allButton.textContent = 'All';
     allButton.dataset.tag = '';
-    allButton.className = 'tag-button active';
+    allButton.className = 'filter-button active';
     tagFilterContainer.appendChild(allButton);
 
     allTags.forEach(tag => {
       const button = document.createElement('button');
       button.textContent = tag;
       button.dataset.tag = tag.toLowerCase();
-      button.className = 'tag-button';
+      button.className = 'filter-button';
       tagFilterContainer.appendChild(button);
     });
 
