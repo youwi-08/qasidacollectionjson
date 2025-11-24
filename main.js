@@ -98,10 +98,16 @@ if (transliterationToggle) {
   if (shareButton && shareMenu) {
     shareButton.addEventListener('click', e => {
       e.stopPropagation();
-      shareMenu.style.display = (shareMenu.style.display === 'flex') ? 'none' : 'flex';
+      // Toggle menu visibility
+      shareMenu.style.display = (shareMenu.style.display === 'block') ? 'none' : 'block';
     });
 
-    document.addEventListener('click', () => shareMenu.style.display = 'none');
+    // Close the menu when clicking outside
+    document.addEventListener('click', () => {
+      shareMenu.style.display = 'none';
+    });
+
+    shareMenu.addEventListener('click', e => e.stopPropagation());
   }
 })();
 
