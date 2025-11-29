@@ -96,18 +96,22 @@ if (transliterationToggle) {
   const shareMenu = document.getElementById('shareMenu');
 
   if (shareButton && shareMenu) {
+
+    // Toggle menu on button click
     shareButton.addEventListener('click', e => {
       e.stopPropagation();
-      // Toggle menu visibility
-      shareMenu.style.display = (shareMenu.style.display === 'block') ? 'none' : 'block';
+      shareMenu.classList.toggle('show');
     });
 
-    // Close the menu when clicking outside
+    // Prevent menu clicks from closing it
+    shareMenu.addEventListener('click', e => {
+      e.stopPropagation();
+    });
+
+    // Close menu only if clicking outside
     document.addEventListener('click', () => {
-      shareMenu.style.display = 'none';
+      shareMenu.classList.remove('show');
     });
-
-    shareMenu.addEventListener('click', e => e.stopPropagation());
   }
 })();
 
