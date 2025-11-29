@@ -228,3 +228,15 @@ if (searchInput) {
 }
 
 })();
+// ------------------ Optional Chorus Box ------------------
+(function () {
+  const container = document.querySelector('.container');
+  if (!container) return;
+
+  const chorusBox = container.querySelector('.chorus-box');
+
+  // If the developer added data-disable-chorus="true", hide the box
+  if (container.dataset.disableChorus === "true" && chorusBox) {
+    chorusBox.style.display = 'none';
+  }
+})();
