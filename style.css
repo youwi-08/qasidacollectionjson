@@ -52,6 +52,30 @@ h1 {
   transition: color 0.3s;
   color: #C99F35;
 }
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .container {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      box-shadow: 0 4px 10px rgba(255,255,255,0.1);
+    }
+
+    body.dark-mode .container p {
+      color: #e0e0e0;
+    }
+    body.dark-mode .container p.alt {
+      color: #53A2A9;
+    }
+    body.dark-mode .container .translation {
+      color: #b8e1f2;
+    }
+    body.dark-mode .container .transliteration {
+      color: #b7b7b7;
+    }
+
 
 .container p {
   font-family: "Al Bayan", sans-serif;
