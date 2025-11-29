@@ -175,27 +175,31 @@ if (transliterationToggle) {
     });
   }
 
-  function filterPoems(selectedTag = '') {
-    let filtered = poems;
+function filterPoems(selectedTag = '') {
+  // Always start from the full list
+  let filtered = Array.isArray(poems) ? [...poems] : [];
+  const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
 
-    const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
-    if (searchTerm) {
-      filtered = filtered.filter(poem => {
-        return (poem.title && poem.title.toLowerCase().includes(searchTerm)) ||
-               (poem.author && poem.author.toLowerCase().includes(searchTerm)) ||
-               (poem.tags && poem.tags.some(tag => tag.toLowerCase().includes(searchTerm)));
-      });
-    }
-
-    if (selectedTag) {
-      filtered = filtered.filter(poem =>
-        poem.tags && poem.tags.some(tag => tag.toLowerCase() === selectedTag)
-      );
-    }
-
-    filteredPoems = filtered;
-    renderPoemList(filteredPoems);
+  // Apply search first (if present)
+  if (searchTerm.length > 0) {
+    filtered = filtered.filter(poem =>
+      (poem.title && poem.title.toLowerCase().includes(searchTerm)) ||
+      (poem.author && poem.author.toLowerCase().includes(searchTerm)) ||
+      (poem.tags && poem.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
+    );
   }
+
+  // Apply tag filter if a specific tag was provided
+  if (selectedTag && selectedTag !== '') {
+    const tagLower = selectedTag.toLowerCase();
+    filtered = filtered.filter(poem =>
+      poem.tags && poem.tags.some(tag => tag.toLowerCase() === tagLower)
+    );
+  }
+
+  filteredPoems = filtered;
+  renderPoemList(filteredPoems);
+}
 
   fetch('../poems-list.json')
     .then(response => {
@@ -212,7 +216,11 @@ if (transliterationToggle) {
       console.error(err);
     });
 
-  if (searchInput) {
-    searchInput.addEventListener('input', filterPoems);
-  }
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    const activeTag = tagFilterContainer?.querySelector('button.active')?.dataset.tag || '';
+    filterPoems(activeTag);
+  });
+}
+
 })();
