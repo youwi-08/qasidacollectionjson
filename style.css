@@ -112,6 +112,14 @@ h1 {
   height: 36px;
   position: relative;
 }
+    body.dark-mode .button {
+      background-color: #444;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .button:hover {
+      background-color: #666;
+    }
 
 .button[data-tooltip]:hover:after,
 .button[data-tooltip]:focus:after {
