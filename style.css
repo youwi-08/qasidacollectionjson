@@ -46,6 +46,10 @@ body {
   font-family: "Al Tarikh";
   src: url("/fonts/AlTarikh.ttc") format("truetype");
 }
+@font-face {
+  font-family: "Amiri-Regular";
+  src: url("/fonts/Amiri-Regular.ttf") format("truetype");
+}
 
 h1 {
   font-family: "Diwan Thuluth", serif;
@@ -78,7 +82,7 @@ h1 {
 
 
 .container p {
-  font-family: "Al Bayan", sans-serif;
+  font-family: "Amiri-Regular", sans-serif;
   color: #6A7786;
   margin: 15px 0;
   line-height: 2;
