@@ -60,6 +60,7 @@ applyAlternateLineColour();
 (function() {
   const hamburgerButton = document.getElementById('hamburgerButton');
   const navPane = document.getElementById('navPane');
+  if(navPane) navPane.style.overflowY = 'auto';
   const navOverlay = document.getElementById('navPaneOverlay');
 
   if (hamburgerButton && navPane) {
