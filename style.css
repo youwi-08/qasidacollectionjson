@@ -415,6 +415,43 @@ body.dark-mode #searchInput::placeholder {
     display: flex;
   }
 }
+@media (max-width: 480px) {
+  .container {
+    padding: 25px 15px 50px 15px;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  .container p {
+    font-size: 1rem !important;
+    line-height: 1.8;
+  }
+  .button,
+  .back-button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font-size: 0.95rem;
+  }
+  #searchInput {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+  #tagFilterContainer {
+    padding-bottom: 4px;
+  }
+  .filter-button {
+    padding: 5px 12px;
+    font-size: 0.85rem;
+  }
+  #shareMenu {
+    min-width: 140px;
+  }
+  #shareMenu button {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+}
 @media (min-width: 769px) {
   .hamburger-button {
     display: none;
