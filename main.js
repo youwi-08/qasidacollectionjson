@@ -60,15 +60,26 @@ applyAlternateLineColour();
 (function() {
   const hamburgerButton = document.getElementById('hamburgerButton');
   const navPane = document.getElementById('navPane');
+  const navOverlay = document.getElementById('navPaneOverlay');
 
   if (hamburgerButton && navPane) {
     hamburgerButton.addEventListener('click', e => {
       e.stopPropagation();
       navPane.classList.toggle('show');
+      if (navOverlay) navOverlay.classList.toggle('show');
     });
 
-    document.addEventListener('click', () => navPane.classList.remove('show'));
+    document.addEventListener('click', () => {
+      navPane.classList.remove('show');
+      if (navOverlay) navOverlay.classList.remove('show');
+    });
     navPane.addEventListener('click', e => e.stopPropagation());
+    if (navOverlay) {
+      navOverlay.addEventListener('click', () => {
+        navPane.classList.remove('show');
+        navOverlay.classList.remove('show');
+      });
+    }
   }
 })();
 

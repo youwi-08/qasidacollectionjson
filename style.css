@@ -127,6 +127,34 @@ h1 {
 }
 
 /* ------------------ Buttons ------------------ */
+.hamburger-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #256328;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  z-index: 2500;
+  transition: background 0.2s, color 0.3s;
+}
+.hamburger-button:hover {
+  background-color: #254563;
+}
+body.dark-mode .hamburger-button {
+  background-color: #444;
+  color: #e0e0e0;
+}
+body.dark-mode .hamburger-button:hover {
+  background-color: #666;
+}
+
 .button {
   display: flex;
   align-items: center;
@@ -224,6 +252,19 @@ h1 {
 }
 
 /* ------------------ Nav Pane ------------------ */
+.nav-pane-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 1500;
+}
+.nav-pane-overlay.show {
+  display: block;
+}
 .nav-pane {
   background: white;
   color: #000;
