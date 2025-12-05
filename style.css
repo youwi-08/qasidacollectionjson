@@ -546,3 +546,18 @@ body.dark-mode #shareMenu button:hover {
   background-color: #444;
   color: #53A2A9;
 }
+/* ------------------ Mobile Styles ------------------ */
+    .page-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-controls-left, .page-controls-right {
+      display: flex;
+      gap: 10px;
+    }
+    @media (min-width: 769px) {
+      #hamburgerButton {
+        display: none !important;
+      }
+    }
