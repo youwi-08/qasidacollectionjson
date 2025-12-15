@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وقفتُ بالذل</title>
+  <!-- Link external CSS -->
+  <link rel="stylesheet" href="../style.css">
+  <!-- Link external JS -->
+  <script src="../main.js" defer></script>
+  <style>
+    .page-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-controls-left, .page-controls-right {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-layout">
+    <nav class="nav-pane" id="navPane">
+      <input type="text" id="searchInput" placeholder="🔍 Search" />
+      <div id="tagFilterContainer"></div>
+      <ul id="poemList"></ul>
+    </nav>
+<div class="container" data-poem-id="1" data-disable-chorus="true">
+      <div class="page-controls-bar">
+        <div class="page-controls-left">
+          <button id="translationToggle" class="button">🌐</button>
+          <button id="transliterationToggle" class="button">🔤</button>
+          <button id="shareButton" class="button">📤</button>
+          <div id="shareMenu">
+            <button id="copyLinkButton" class="button">نسخ الرابط</button>
+            <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
+            <button id="telegramShareButton" class="button">المشاركة على تيليجرام</button>
+          </div>
+        </div>
+        <div class="page-controls-right">
+          <button onclick="changeFontSize(1)" class="button">+</button>
+          <button onclick="changeFontSize(-1)" class="button">-</button>
+          <button id="darkModeToggle" class="button">🌓</button>
+        </div>
+      </div>
+      <h1>وقفتُ بالذل</h1>
+
+      <!-- Chorus Box -->
+      <div class="chorus-box">
+        يَــا إِمَــامَ الــرُّسُــلِ يَــا سَــنَــدِي ۝ أَنْــتَ بَـــابُ الــلــهِ مُــعْــتَــمَــدِي
+           
+        فَــبِــدُنْــيَــايَ وَآخِــرَتِــي ۝ يَــارَسُــولَ الــلــهِ خُــذْ بِــيَــدِي
+      </div>
+
+      <!-- Poem Input -->
+<p>وقفتُ بالذل فى أبواب عزكمُ ۝ مستشفعاً من ذنوبى عندكم بكمُ</p>
+<p>أعفرُ الخدَّ ذلاً فى الترابِ عسى ۝ أن ترحمونى وترضونى عبيدكمُ</p>
+
+<p class="alt"> فإن رضيتم فيا عزى ويا شرفى ۝ وإن أبيتم فمن أرجوهُ غيركمُ</p>
+<p class="alt">لا بلَّغَ الله عينى طيب رؤيتكم ۝ إن طاب للسمع يوماً غير ذكركمُ</p>
+
+<p>وإن وجدتُ اصطباراً عن محبتكم ۝ عدمتُ كل مسراتى بأنسكمُ</p>
+<p>نسيتُ كل طريقٍ كنت أعرفها ۝ إلا طريقاً يؤدينى لربعكمُ</p>
+
+<p class="alt">أنا المقر بذنبى فاصفحوا كرماً ۝ فبانكسارى وذلى قد أتيتكمُ</p>
+<p class="alt">لاتطردونى فإنى قد عُرِفتُ بكمْ ۝ وصرتُ بين الورى أُدعى عبيدكمُ</p>
+
+<p>بمطلقِ الحسنِ واللطف الجميلِ غدتْ ۝ كلُ القلوبِ وراحتْ تحت أسركمُ</p>
+<p>وحقكم قسماً حسبى به قسمُ ۝ على أعزِّ مِلاحِ القومِ منقسمُ</p>
+
+<p class="alt">أفنوا الحشاشةَ وابقوا واهجروا وصلوا ۝ فجنة الخلدِ ماشئتم لعبدكمُ</p>
+<p class="alt">إن متُ فى حبكم شوقاً فيا شرفى ۝ ويا سرورى بموتى فيكمُ بكمُ</p>
+
+
+</body>
+</html>
