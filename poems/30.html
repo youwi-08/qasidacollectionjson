@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>يــا إِمَــامَ الــرُّسُــلِ</title>
+  <!-- Link external CSS -->
+  <link rel="stylesheet" href="../style.css">
+  <!-- Link external JS -->
+  <script src="../main.js" defer></script>
+  <style>
+    .page-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-controls-left, .page-controls-right {
+      display: flex;
+      gap: 10px;
+    }
+    @media (min-width: 769px) {
+      #hamburgerButton {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+ 
+<div id="navPaneOverlay" class="nav-pane-overlay"></div>
+  <div class="page-layout">
+    <nav class="nav-pane" id="navPane">
+      <input type="text" id="searchInput" placeholder="🔍 Search" />
+      <div id="tagFilterContainer"></div>
+      <ul id="poemList"></ul>
+    </nav>
+<div class="container" data-poem-id="1" data-disable-chorus="false">
+      <div class="page-controls-bar">
+        <div class="page-controls-left">
+          <button id="hamburgerButton" class="button">☰</button>
+          <button id="translationToggle" class="button">🌐</button>
+          <button id="transliterationToggle" class="button">🔤</button>
+          <button id="shareButton" class="button">📤</button>
+          <div id="shareMenu">
+            <button id="copyLinkButton" class="button">نسخ الرابط</button>
+            <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
+            <button id="telegramShareButton" class="button">المشاركة على تيليجرام</button>
+          </div>
+        </div>
+        <div class="page-controls-right">
+          <button onclick="changeFontSize(1)" class="button">+</button>
+          <button onclick="changeFontSize(-1)" class="button">-</button>
+          <button id="darkModeToggle" class="button">🌓</button>
+        </div>
+      </div>
+      <h1>يا إمام الرسل</h1>
+
+      <!-- Chorus Box -->
+      <div class="chorus-box">
+         <p> إني أُحِبُّ محمدًا ۝ والله خير شاهدًا</p>
+        <p>ياربِّ صلِّ علي المدى ۝ أبدًا عليه مُجددا</p>    
+      </div>
+
+      <!-- Poem Input -->
+<p> إني أُحِبُّ محمدًا ۝ والله خير شاهدًا</p>
+<p>ياربِّ صلِّ علي المدى ۝ أبدًا عليه مُجددا</p>
+
+<p class="alt">صلِّ وسََلمْ سيدي ۝ ما جاء ذكرُ محمدِ</p>
+<p class="alt">في قلب كلِّ مُوحدِ ۝ ذاق المقام "الأحمدي </p>
+
+<p>فبسِرِّ نور أبي الهدى ۝  إنِّي أُحِبُّ محمدًا</p>
+<p>والحب منك ..فإن بَدا ۝ ربِّي ...فزِدْه مؤيدا</p>
+
+<p class="alt">وبسرِّ أنوار النبي ۝ وبنور سِرِّ العربي </p>
+<p class="alt">ولأنت تعلم مَأربي ۝ ما غير وجهك مطلبي</p>
+
+<p>وبسرِّ نور المُصطفى ۝ اصل السماحة والوفا</p>
+<p>يا خيرَ غفار عفا ۝ اجعل فؤادي في صفا</p>
+
+<p class="alt">وبسرِّ نور  الهاشمي ۝ عَجِّل بفتح مُنعم</p>
+<p class="alt">واجعل نبيك بلسمي ۝ من كل داء مُبهم</p>
+
+<p>وبسرِّ نور المُرتضي ۝ وبسر أسرار القَضَا</p>
+<p>إفتح لنا باب الرضا ۝ واغفر وسامح ما مضى</p>
+
+<p class="alt">وبنور يس الجَليّ ۝ وبحق إسمك يا عليّ</p>
+<p class="alt">أحببتُه .. فاجعله لي ۝ يارب مولاي الوليّ</p>
+
+
+</body>
+</html>
