@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بادرلقد فاتتك الغنائم</title>
+  <!-- Link external CSS -->
+  <link rel="stylesheet" href="../style.css">
+  <!-- Link external JS -->
+  <script src="../main.js" defer></script>
+  <style>
+    .page-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-controls-left, .page-controls-right {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-layout">
+    <nav class="nav-pane" id="navPane">
+      <input type="text" id="searchInput" placeholder="🔍 Search" />
+      <div id="tagFilterContainer"></div>
+      <ul id="poemList"></ul>
+    </nav>
+<div class="container" data-poem-id="1" data-disable-chorus="true">
+      <div class="page-controls-bar">
+        <div class="page-controls-left">
+          <button id="translationToggle" class="button">🌐</button>
+          <button id="transliterationToggle" class="button">🔤</button>
+          <button id="shareButton" class="button">📤</button>
+          <div id="shareMenu">
+            <button id="copyLinkButton" class="button">نسخ الرابط</button>
+            <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
+            <button id="telegramShareButton" class="button">المشاركة على تيليجرام</button>
+          </div>
+        </div>
+        <div class="page-controls-right">
+          <button onclick="changeFontSize(1)" class="button">+</button>
+          <button onclick="changeFontSize(-1)" class="button">-</button>
+          <button id="darkModeToggle" class="button">🌓</button>
+        </div>
+      </div>
+      <h1>بادرلقد فاتتك الغنائم</h1>
+
+      <!-- Chorus Box -->
+      <div class="chorus-box">
+        يَــا إِمَــامَ الــرُّسُــلِ يَــا سَــنَــدِي ۝ أَنْــتَ بَـــابُ الــلــهِ مُــعْــتَــمَــدِي
+           
+        فَــبِــدُنْــيَــايَ وَآخِــرَتِــي ۝ يَــارَسُــولَ الــلــهِ خُــذْ بِــيَــدِي
+      </div>
+
+      <!-- Poem Input -->
+<p>بادرلقد فاتتك الغنائم ۝  تقاسموها وأنتم نائم</p>
+<p>ولو رأيت الذين فازوا ۝  نحت كما ناحت الحمائم </p>
+
+<p class="alt">إن رمتم أن لا تكون نادم ۝ قم لحبيب القلوب لازم </p>
+<p class="alt">ولازم الباب يا معنى ۝ إن السعيد الذي يلازم </p>
+
+<p>من لازم الباب نال قرباً ۝  وفاز بالأجر والغنائم </p>
+<p>ولا تنم ساعة التجلي ۝  فليس يحظى بالأجر نائم </p>
+
+<p class="alt">قد جرحت قلبي الخطايا ۝ ولست ألقى لها مراهم </p>
+<p class="alt">سوى الرضا منك يا إلهي۝ يا واسع الجود والمكارم </p>
+
+<p>وقد توسلنا يا إلهي ۝ بسيد العرب والأعاجم </p>
+<p>نبينا المصطفى التهامي ۝ من جاء للأنبياء خاتم  </p>
+
+
+</body>
+</html>
