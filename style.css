@@ -349,7 +349,7 @@ body.dark-mode .hamburger-button:hover {
 .filter-button.active,
 .filter-button:focus {
   background-color: #264562;
-  color: #1e1e1e;
+  color: #fff;
 }
 .filter-button:hover:not(.active) {
   background-color: #256328;
