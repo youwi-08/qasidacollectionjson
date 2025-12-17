@@ -346,6 +346,15 @@ body.dark-mode .hamburger-button:hover {
   transition: background 0.2s, color 0.2s;
   outline: none;
 }
+.filter-button.active,
+.filter-button:focus {
+  background-color: #53A2A9;
+  color: #1e1e1e;
+}
+.filter-button:hover:not(.active) {
+  background-color: #256328;
+  color: #fff;
+}
 
 /* ------------------ Dark Mode ------------------ */
 body.dark-mode #tagFilterContainer {
