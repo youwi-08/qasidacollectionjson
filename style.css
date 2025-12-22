@@ -54,11 +54,6 @@ body {
   font-family: "A Thuluth";
   src: url("/fonts/A Thuluth.ttf") format("truetype");
 }
-title {
-  font-family: "A Thuluth", serif;
-  transition: color 0.3s;
-  color: #C99F35;
-}
 
 h1 {
   font-family: "A Thuluth", serif;
