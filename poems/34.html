@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لما سقاني ساقي القوم</title>
+  <!-- Link external CSS -->
+  <link rel="stylesheet" href="../style.css">
+  <!-- Link external JS -->
+  <script src="../main.js" defer></script>
+  <style>
+    .page-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-controls-left, .page-controls-right {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-layout">
+    <nav class="nav-pane" id="navPane">
+      <input type="text" id="searchInput" placeholder="🔍 Search" />
+      <div id="tagFilterContainer"></div>
+      <ul id="poemList"></ul>
+    </nav>
+<div class="container" data-poem-id="1" data-disable-chorus="true">
+      <div class="page-controls-bar">
+        <div class="page-controls-left">
+          <button id="translationToggle" class="button">🌐</button>
+          <button id="transliterationToggle" class="button">🔤</button>
+          <button id="shareButton" class="button">📤</button>
+          <div id="shareMenu">
+            <button id="copyLinkButton" class="button">نسخ الرابط</button>
+            <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
+            <button id="telegramShareButton" class="button">المشاركة على تيليجرام</button>
+          </div>
+        </div>
+        <div class="page-controls-right">
+          <button onclick="changeFontSize(1)" class="button">+</button>
+          <button onclick="changeFontSize(-1)" class="button">-</button>
+          <button id="darkModeToggle" class="button">🌓</button>
+        </div>
+      </div>
+      <h1>لما سقاني ساقي القوم</h1>
+
+      <!-- Chorus Box -->
+      <div class="chorus-box">
+        يَــا إِمَــامَ الــرُّسُــلِ يَــا سَــنَــدِي ۝ أَنْــتَ بَـــابُ الــلــهِ مُــعْــتَــمَــدِي
+           
+        فَــبِــدُنْــيَــايَ وَآخِــرَتِــي ۝ يَــارَسُــولَ الــلــهِ خُــذْ بِــيَــدِي
+      </div>
+
+      <!-- Poem Input -->
+<p>لما سقاني ساقي القوم ۝ من خمره طابت أنفاسي</p>
+<p>وساقينا حامي جيلان ۝ فما علينا من باسِ</p>
+
+<p class="alt">يا باز يا عبد القادر ۝ يا أيها البحر الزاخر</p>
+<p class="alt">أدرك أغثنا يا سلطان ۝ من شدة الوقت العاثر</p>
+
+<p>الكأس نور يلالي ۝ من يد شيخ الرجال </p>
+<p>وشيخنا عين الأعيان ۝ وموصل للمعالي</p>
+
+<p class="alt">في مدحه صاح غنّي ۝ ومن يلم فليلمني </p>
+<p class="alt">ولو بعذلي أطالوا ۝ فمدحه أضحى فني</p>
+
+
+</body>
+</html>
