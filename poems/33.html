@@ -1,0 +1,68 @@
+33<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وأنا داخل على أعتاب</title>
+  <!-- Link external CSS -->
+  <link rel="stylesheet" href="../style.css">
+  <!-- Link external JS -->
+  <script src="../main.js" defer></script>
+  <style>
+    .page-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-controls-left, .page-controls-right {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-layout">
+    <nav class="nav-pane" id="navPane">
+      <input type="text" id="searchInput" placeholder="🔍 Search" />
+      <div id="tagFilterContainer"></div>
+      <ul id="poemList"></ul>
+    </nav>
+<div class="container" data-poem-id="1" data-disable-chorus="false">
+      <div class="page-controls-bar">
+        <div class="page-controls-left">
+          <button id="translationToggle" class="button">🌐</button>
+          <button id="transliterationToggle" class="button">🔤</button>
+          <button id="shareButton" class="button">📤</button>
+          <div id="shareMenu">
+            <button id="copyLinkButton" class="button">نسخ الرابط</button>
+            <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
+            <button id="telegramShareButton" class="button">المشاركة على تيليجرام</button>
+          </div>
+        </div>
+        <div class="page-controls-right">
+          <button onclick="changeFontSize(1)" class="button">+</button>
+          <button onclick="changeFontSize(-1)" class="button">-</button>
+          <button id="darkModeToggle" class="button">🌓</button>
+        </div>
+      </div>
+      <h1>وأنا داخل على أعتاب</h1>
+
+      <!-- Chorus Box -->
+      <div class="chorus-box">
+        <p>وأنا داخل على أعتاب وعلى القبة الخضرا ۝ بالله نظرة يا سيدي كرمال علي والزهرة</p>
+
+      </div>
+
+      <!-- Poem Input -->
+<p>وأنا داخل على أعتاب وعلى القبة الخضرا ۝ بالله نظرة يا سيدي كرمال علي والزهرة</p>
+<p>وأنا لأمدح محمد وأبو بكر الصديق ۝ بالله نظرة يا سيدي يا صاحب التحقيق</p>
+
+<p class="alt">وأنا لأمدح محمد وعمر يا ابن الخطاب ۝ بالله نظرة يا سيدي يا ميهم بالصواب</p>
+<p class="alt">وأنا لأمدح محمد وعثمان يا ابن العفان ۝ بالله نظرة يا سيدي يا جَمِعَ القران</p>
+
+<p>وأنا لأمدح محمد وعلي يا ابن أبي طالب ۝ بالله نظرة يا سيدي يا مظهر للعجائب</p>
+<p>وأنا لأمدح محمد وسيدنا الحسن والحسين ۝ بالله نظرة يا سيدي يا أسياد للنبي قرة عين</p>
+
+
+</body>
+</html>
