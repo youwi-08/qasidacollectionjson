@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لما سقاني ساقي القوم</title>
+  <title>404 Error</title>
   <!-- Link external CSS -->
   <link rel="stylesheet" href="../style.css">
   <!-- Link external JS -->
@@ -18,33 +18,25 @@
       display: flex;
       gap: 10px;
     }
+    .back-home-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 16px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .back-home-btn:hover {
+      background-color: #555;
+    }
   </style>
+  <h1>404 Error</h1>
 </head>
 <body>
-  <div class="page-layout">
-    <nav class="nav-pane" id="navPane">
-      <input type="text" id="searchInput" placeholder="🔍 Search" />
-      <div id="tagFilterContainer"></div>
-      <ul id="poemList"></ul>
-    </nav>
-<div class="container" data-poem-id="1" data-disable-chorus="true">
-      <div class="page-controls-bar">
-        <div class="page-controls-left">
-          <button id="translationToggle" class="button">🌐</button>
-          <button id="transliterationToggle" class="button">🔤</button>
-          <button id="shareButton" class="button">📤</button>
-          <div id="shareMenu">
-            <button id="copyLinkButton" class="button">نسخ الرابط</button>
-            <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
-            <button id="telegramShareButton" class="button">المشاركة على تيليجرام</button>
-          </div>
-        </div>
-        <div class="page-controls-right">
-          <button onclick="changeFontSize(1)" class="button">+</button>
-          <button onclick="changeFontSize(-1)" class="button">-</button>
-          <button id="darkModeToggle" class="button">🌓</button>
-        </div>
-      </div>
-      <h1>404 Error</h1>
+      <p>The page you’re looking for doesn’t exist.</p>
+      <a href="../index.html" class="back-home-btn">Go back home</a>
 </body>
 </html>
