@@ -34,5 +34,6 @@
   { "id": "32", "title": "القصيدة الكوثرية", "file": "poems/32.html" },
   { "id": "33", "title": "وأنا داخل على أعتاب", "file": "poems/33.html" },
   { "id": "34", "title": "لما سقاني  ساقي القوم", "file": "poems/34.html", "tags": ["Qadiri"] },
-  { "id": "35", "title": "أهل حزب الديان", "file": "poems/35.html", "tags": ["Qadiri"] }
+  { "id": "35", "title": "أهل حزب الديان", "file": "poems/35.html", "tags": ["Qadiri"] },
+  { "id": "36", "title": "يا حادي الركبان", "file": "poems/36.html", "tags": ["Shadhili"] }
 ]

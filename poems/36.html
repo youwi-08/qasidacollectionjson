@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>يا حادي الركبان</title>
+  <!-- Link external CSS -->
+  <link rel="stylesheet" href="../style.css">
+  <!-- Link external JS -->
+  <script src="../main.js" defer></script>
+  <style>
+    .page-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-controls-left, .page-controls-right {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-layout">
+    <nav class="nav-pane" id="navPane">
+      <input type="text" id="searchInput" placeholder="🔍 Search" />
+      <div id="tagFilterContainer"></div>
+      <ul id="poemList"></ul>
+    </nav>
+<div class="container" data-poem-id="1" data-disable-chorus="true">
+      <div class="page-controls-bar">
+        <div class="page-controls-left">
+          <button id="translationToggle" class="button">🌐</button>
+          <button id="transliterationToggle" class="button">🔤</button>
+          <button id="shareButton" class="button">📤</button>
+          <div id="shareMenu">
+            <button id="copyLinkButton" class="button">نسخ الرابط</button>
+            <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
+            <button id="telegramShareButton" class="button">المشاركة على تيليجرام</button>
+          </div>
+        </div>
+        <div class="page-controls-right">
+          <button onclick="changeFontSize(1)" class="button">+</button>
+          <button onclick="changeFontSize(-1)" class="button">-</button>
+          <button id="darkModeToggle" class="button">🌓</button>
+        </div>
+      </div>
+      <h1>يا حادي الركبان</h1>
+
+      <!-- Chorus Box -->
+      <div class="chorus-box">
+        يَــا إِمَــامَ الــرُّسُــلِ يَــا سَــنَــدِي ۝ أَنْــتَ بَـــابُ الــلــهِ مُــعْــتَــمَــدِي
+           
+        فَــبِــدُنْــيَــايَ وَآخِــرَتِــي ۝ يَــارَسُــولَ الــلــهِ خُــذْ بِــيَــدِي
+      </div>
+
+      <!-- Poem Input -->
+<p>يَا حَادِيَ الرُّكْبَانْ ۝ مَتَى وَصَلْتَ الْبَانْ</p>
+<p> أَرِحْ هُنَاكَ الْعِيسْ ۝ وَبَشِّرِ الْوَهَانْ</p>
+
+<p class="alt">أَرْوَاحُنَا رَاحَتْ  ۝ وَبِاللِّقَا ارْتَاحَتْ</p>
+<p class="alt">شمس الحِمَى لَاحَتْ ۝ وضَاءَتِ الْأَكوَانْ</p>
+
+<p>مَا أَكْثَرَ الْأَحْبَابْ ۝ وَجْداً بِذَاكَ الْبَابْ</p>
+<p>تَطُوفُ بِالْأَعْتَابْ ۝ وَكُلُّهَا أَشْجَانْ</p>
+
+<p class="alt">يَا سَاكِنِي رَامَةْ ۝ اَلنَّارُ ضَرَّامَةْ</p>
+<p class="alt">وَالرُّوحُ صَوَّامَةْ ۝ لَكُمْ عَنِ الْأَكْوَانْ</p>
+
+<p>لِحِيَّكُمْ سِرْنَا ۝ شَوْقاً وَقَدْ طِرْنَا</p>
+<p>وَفِي الْهَوَى حِرْنَا  ۝ وَذُو الْهَوَى حَيْرَانْ</p>
+
+<p class="alt">عَلَيْكُمْ الأَرْواح ۝ دَارَتْ لَها أقْدَاحْ</p>
+<p class="alt">وذِكْرُكُمْ كَالرَاح ۝ طَابَتْ بِهِ النُدْمَانْ</p>
+
+<p>لَكُمْ سَلَامُ الله ۝ تُهْدَى لِرُوحِ الله</p>
+<p>مَا أَنْشِدِ الَأوَاه ۝ يا حَادِيَ الرُكْبَان</p>
+
+
+
+</body>
+</html>
