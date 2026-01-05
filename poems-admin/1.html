@@ -380,6 +380,24 @@ body {
       color: #fff;
     }
   </style>
+<script>
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const isRoom = params.has('room');
+
+    /* Load correct stylesheet */
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = isRoom ? '../style-admin.css' : '../style.css';
+    document.head.appendChild(link);
+
+    /* Load correct JS */
+    const script = document.createElement('script');
+    script.src = isRoom ? '../main-admin.js' : '../main.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  })();
+</script>
 </head>
 <body>
   <div class="page-layout">
