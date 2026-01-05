@@ -562,7 +562,7 @@ body {
               return {
                 id: data.id || docSnap.id, // fallback to document ID if id field is missing
                 title: data.title,
-                url: data.url || `https://experimentaldeploy.netlify.app/poems-admin/${encodeURIComponent(data.id || docSnap.id)}?dark`,
+                url: data.url || `/poems/${encodeURIComponent(data.id || docSnap.id)}.html?dark`,
                 isCurrent: data.isCurrent || false,
                 order: data.order || 0
               };
