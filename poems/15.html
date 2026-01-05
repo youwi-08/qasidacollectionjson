@@ -4,10 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>يا هنانا</title>
-  <!-- Link external CSS -->
-  <link rel="stylesheet" href="../style.css">
-  <!-- Link external JS -->
-  <script src="../main.js" defer></script>
+  <!-- Dynamic loader for CSS/JS and .html fix -->
   <style>
     .page-controls-bar {
       display: flex;
@@ -23,20 +20,29 @@
   (function () {
     const params = new URLSearchParams(window.location.search);
     const isRoom = params.has('room');
+    const isDark = params.has('dark');
 
     /* Load correct stylesheet */
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = isRoom ? '../style-admin.css' : '../style.css';
+    link.href = isRoom ? '/style-admin.css' : '/style.css';
     document.head.appendChild(link);
 
     /* Load correct JS */
     const script = document.createElement('script');
-    script.src = isRoom ? '../main-admin.js' : '../main.js';
+    script.src = isRoom ? '/main-admin.js' : '/main.js';
     script.defer = true;
     document.head.appendChild(script);
+
+    /* Ensure URL points to the correct .html file */
+    const currentPath = window.location.pathname;
+    if (!currentPath.endsWith('.html')) {
+      const poemId = currentPath.split('/').pop();
+      const newUrl = `/poems/${poemId}.html${window.location.search}`;
+      window.history.replaceState({}, '', newUrl);
+    }
   })();
-</script>
+  </script>
 </head>
 <body>
   <div class="page-layout">
