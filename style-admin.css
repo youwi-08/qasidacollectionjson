@@ -371,3 +371,27 @@ body {
       background-color: #256328;
       color: #fff;
     }
+
+/* ---------------- Room-only overrides ---------------- */
+
+/* Hide navigation and interactive UI in room mode */
+.nav-pane,
+.page-controls-bar,
+.font-size-controls,
+.top-left-buttons,
+.hamburger-button,
+.back-button,
+.button {
+  display: none !important;
+}
+
+/* Always hide translation and transliteration in rooms */
+.translation,
+.transliteration {
+  display: none !important;
+}
+
+/* Optional: cleaner display look for rooms */
+.container {
+  box-shadow: none;
+}

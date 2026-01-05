@@ -1,3 +1,9 @@
+const isRoom = new URLSearchParams(window.location.search).has('room');
+if (!isRoom) {
+  // Safety guard — admin JS should never run for public users
+  return;
+}
+
 // ------------------ Font Size ------------------
 (function() {
   const minFontSize = 1, maxFontSize = 2.5;
