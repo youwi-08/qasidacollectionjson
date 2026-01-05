@@ -511,8 +511,11 @@ body {
             iframe.id = 'poemIframe';
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const isDark = currentTheme === 'dark';
-            const urlBase = poem.id === '1' ? '/poems-admin/1.html' : `/poems/${encodeURIComponent(poem.id)}`;
-            iframe.src = isDark ? `${urlBase}?dark` : urlBase;
+            const baseUrl = `/poems/${encodeURIComponent(poem.id)}.html`;
+            const params = new URLSearchParams();
+            params.set('room', '1');
+            if (isDark) params.set('dark', '1');
+            iframe.src = `${baseUrl}?${params.toString()}`;
             iframe.style.width = '100%';
             iframe.style.border = 'none';
             iframe.style.borderRadius = '8px';
