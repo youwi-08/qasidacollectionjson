@@ -4,10 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>يــا إِمَــامَ الــرُّسُــلِ</title>
-  <!-- Link external CSS -->
-  <link rel="stylesheet" href="../style.css">
-  <!-- Link external JS -->
-  <script src="../main.js" defer></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const isRoom = params.has('room');
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = isRoom ? '../style-admin.css' : '../style.css';
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = isRoom ? '../main-admin.js' : '../main.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  </script>
   <style>
     .page-controls-bar {
       display: flex;
