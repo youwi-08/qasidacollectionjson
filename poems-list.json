@@ -1,5 +1,5 @@
 [
-  { "id": "index", "title": "Home 🏡", "file": "../index.html", "tags": ["Home"]  },
+  { "id": "index", "title": "Home 🏡", "file": "../index.html" },
   { "id": "1", "title": "يا إمام الرسل", "file": "poems/1.html", "tags": ["Classical"] },
   { "id": "2", "title": "القصيدة المحمديه", "file": "poems/2.html", "tags": ["Classical"] },
   { "id": "3", "title": "خير البرية", "file": "poems/3.html" },
