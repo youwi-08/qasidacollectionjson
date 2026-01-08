@@ -35,5 +35,6 @@
   { "id": "33", "title": "وأنا داخل على أعتاب", "file": "poems/33.html" },
   { "id": "34", "title": "لما سقاني  ساقي القوم", "file": "poems/34.html", "tags": ["Qadiri"] },
   { "id": "35", "title": "أهل حزب الديان", "file": "poems/35.html", "tags": ["Qadiri"] },
-  { "id": "36", "title": "يا حادي الركبان", "file": "poems/36.html", "tags": ["Shadhili"] }
+  { "id": "36", "title": "يا حادي الركبان", "file": "poems/36.html", "tags": ["Shadhili"] },
+  { "id": "37", "title": "لما دار الكأس", "file": "poems/37.html", "tags": ["Shadhili"] }
 ]
