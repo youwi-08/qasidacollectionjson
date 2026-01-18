@@ -37,6 +37,7 @@
   { "id": "35", "title": "أهل حزب الديان", "file": "poems/35.html", "tags": ["Qadiri"] },
   { "id": "36", "title": "يا حادي الركبان", "file": "poems/36.html", "tags": ["Shadhili"] },
   { "id": "37", "title": "لما دار الكأس", "file": "poems/37.html", "tags": ["Shadhili"] },
-  { "id": "38", "title": "يا من سريت ليلً", "file": "poems/38.html", "tags": ["Qadiri"] }
+  { "id": "38", "title": "يا من سريت ليلً", "file": "poems/38.html", "tags": ["Qadiri"] },
+  { "id": "39", "title": "رمضان تجلى وابتسما", "file": "poems/39.html" }
 
 ]
