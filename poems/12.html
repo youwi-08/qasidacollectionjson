@@ -4,41 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>القصيدة المنفرجة</title>
-  <!-- Link external CSS -->
-  <link rel="stylesheet" href="../style.css">
-  <!-- Link external JS -->
-  <script src="../main.js" defer></script>
-  <style>
-    .page-controls-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .page-controls-left, .page-controls-right {
-      display: flex;
-      gap: 10px;
-    }
-  </style>
-  <script>
-  (function () {
-    const params = new URLSearchParams(window.location.search);
-    const isRoom = params.has('room');
+update poems 4-10 to support admin
 
-    /* Load correct stylesheet */
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = isRoom ? '../style-admin.css' : '../style.css';
-    document.head.appendChild(link);
-
-    /* Load correct JS */
-    const script = document.createElement('script');
-    script.src = isRoom ? '../main-admin.js' : '../main.js';
-    script.defer = true;
-    document.head.appendChild(script);
-  })();
-</script>
-</head>
-<body>
   <div class="page-layout">
     <nav class="nav-pane" id="navPane">
       <input type="text" id="searchInput" placeholder="🔍 Search" />
