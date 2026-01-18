@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>القصيدة المحمديه</title>
-  <script>
+  <link rel="icon" type="image/png" href="/images/logo.ico" sizes="32x32">
+    <script>
     const isRoom = new URLSearchParams(location.search).has('room');
     document.write(
       `<link rel="stylesheet" href="${isRoom ? '../style-admin.css' : '../style.css'}">`
@@ -22,7 +23,6 @@
 </head>
 
 <body>
- 
 <div id="navPaneOverlay" class="nav-pane-overlay"></div>
   <div class="page-layout">
     <nav class="nav-pane" id="navPane">
