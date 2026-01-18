@@ -4,6 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>القصيدة المنفرجة</title>
+    <link rel="icon" type="image/png" href="/images/logo.ico" sizes="32x32">
+  <script>
+    const isRoom = new URLSearchParams(location.search).has('room');
+    document.write(
+      `<link rel="stylesheet" href="${isRoom ? '../style-admin.css' : '../style.css'}">`
+    );
+  </script>
+
+  <!-- Icons & fonts -->
+  <link rel="icon" href="/images/logo.ico">
+
+  <!-- Small critical CSS only -->
+  <style>
+    body { margin: 0; }
+    .page-layout { min-height: 100vh; }
+  </style>
+</head>
+
+<body>
+    <script src="../main.js" defer></script>
   <div class="page-layout">
     <nav class="nav-pane" id="navPane">
       <input type="text" id="searchInput" placeholder="🔍 Search" />
