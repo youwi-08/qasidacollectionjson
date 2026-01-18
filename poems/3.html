@@ -6,50 +6,24 @@
   <title>خير البرية</title>
   <link rel="icon" type="image/png" href="/images/logo.ico" sizes="32x32">
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const isRoom = params.has('room');
-
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = isRoom ? '../style-admin.css' : '../style.css';
-    document.head.appendChild(link);
-
-    const script = document.createElement('script');
-    script.src = isRoom ? '../main-admin.js' : '../main.js';
-    script.defer = true;
-    document.head.appendChild(script);
+    const isRoom = new URLSearchParams(location.search).has('room');
+    document.write(
+      `<link rel="stylesheet" href="${isRoom ? '../style-admin.css' : '../style.css'}">`
+    );
   </script>
+
+  <!-- Icons & fonts -->
+  <link rel="icon" href="/images/logo.ico">
+
+  <!-- Small critical CSS only -->
   <style>
-    .page-controls-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .page-controls-left, .page-controls-right {
-      display: flex;
-      gap: 10px;
-    }
+    body { margin: 0; }
+    .page-layout { min-height: 100vh; }
   </style>
-  <script>
-  (function () {
-    const params = new URLSearchParams(window.location.search);
-    const isRoom = params.has('room');
-
-    /* Load correct stylesheet */
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = isRoom ? '../style-admin.css' : '../style.css';
-    document.head.appendChild(link);
-
-    /* Load correct JS */
-    const script = document.createElement('script');
-    script.src = isRoom ? '../main-admin.js' : '../main.js';
-    script.defer = true;
-    document.head.appendChild(script);
-  })();
-</script>
 </head>
+
 <body>
+    <script src="../main.js" defer></script>
   <div class="page-layout">
     <nav class="nav-pane" id="navPane">
       <input type="text" id="searchInput" placeholder="🔍 Search" />
