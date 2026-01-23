@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قد كفاني</title>
+  <link rel="icon" type="image/png" href="/images/logo.ico" sizes="32x32">
+  <script>
+    const isRoom = new URLSearchParams(location.search).has('room');
+    document.write(
+      `<link rel="stylesheet" href="${isRoom ? '../style-admin.css' : '../style.css'}">`
+    );
+  </script>
+
+  <!-- Icons & fonts -->
+  <link rel="icon" href="/images/logo.ico">
+
+  <!-- Small critical CSS only -->
+  <style>
+    body { margin: 0; }
+    .page-layout { min-height: 100vh; }
+  </style>
+</head>
+
+<body>
+    <script src="../main.js" defer></script>
+  <div class="page-layout">
+    <nav class="nav-pane" id="navPane">
+      <input type="text" id="searchInput" placeholder="🔍 Search" />
+      <div id="tagFilterContainer"></div>
+      <ul id="poemList"></ul>
+    </nav>
+<div class="container" data-poem-id="1" data-disable-chorus="false">
+      <div class="page-controls-bar">
+        <div class="page-controls-left">
+          <button id="translationToggle" class="button">🌐</button>
+          <button id="transliterationToggle" class="button">🔤</button>
+          <button id="shareButton" class="button">📤</button>
+          <div id="shareMenu">
+            <button id="copyLinkButton" class="button">نسخ الرابط</button>
+            <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
+            <button id="telegramShareButton" class="button">المشاركة على تيليجرام</button>
+          </div>
+        </div>
+        <div class="page-controls-right">
+          <button onclick="changeFontSize(1)" class="button">+</button>
+          <button onclick="changeFontSize(-1)" class="button">-</button>
+          <button id="darkModeToggle" class="button">🌓</button>
+        </div>
+      </div>
+      <h1>قد كفاني</h1>
+
+      <!-- Chorus Box -->
+      <div class="chorus-box">
+        <p>رمضان تجلى وابتسما ۝ طوبى للعبد اذا اغتنما</p>
+        <p>أرضى مولاه بما التزما ۝ طوبى للنفس بتقواها</p>
+      </div>
+
+      <!-- Poem Input -->
+<p>قَد كَفاني عِلمُ رَبّي ۝ مِن سُؤالي وَاِختِياري</p>
+<p>فَدُعائي وَاِبتِهالي ۝ شاهِدٌ لي بِاِفتِقاري</p>
+
+<p class="alt">فَلِهَذا السِرُّ أَدعو ۝ في يَساري وَعِساري</p>
+<p class="alt">أَنا عَبدٌ صارَ فَخري ۝ ضِمنَ فَقري وَاِضطِراري</p>
+
+<p>قَد كَفاني عِلمُ رَبّي ۝ مِن سُؤالي وَاِختِياري</p>
+<p>يا إِلَهي وَمَليكي ۝ أَنتَ تَعلَمُ كَيفَ حالي</p>
+
+<p class="alt">وَبِما قَد حَلَّ قَلبي ۝ مِن هُمومٍ وَاِشتِغالي</p>
+<p class="alt">فَتَدارَكَني بِلُطفٍ ۝ مِنكَ يا مَولى المَوالي</p>
+
+<p>يا كَريمَ الوَجهِ غِثني ۝ قَبلَ اَن يَفنى اِصطِباري</p>
+<p>قَد كَفاني عِلمُ رَبّي ۝ مِن سُؤالي وَاِختِيارِ</p>
+
+<p class="alt">يا سريعَ الغَوثِ غَوثاً ۝ مِنكَ يُدرُكُني سَريعا</p>
+<p class="alt">يَهزِمُ العُسرَ وَيَأتي ۝ بِالَّذي أَرجو جَميعا</p>
+
+<p>يا قَريباً يا مُجيباً ۝ يا عَليماً يا سَميعا</p>
+<p>قَد تَحَقَّقَت بِعَجزي ۝ وَخُضوعي وَاِنكِساري</p>
+
+<p class="alt">قَد كَفاني عِلمُ رَبّي ۝ مِن سُؤالي وَاِختِياري</p>
+<p class="alt">لَم أَزَل بِالبابِ واقِفٌ ۝ فَأَدِم رَبّي وُقوفي</p>
+
+<p>وَبِوادي الفَضلِ عاكِفٌ ۝ فَأَدِم رَبّي عُكوفي</p>
+<p>وَلِحُسنِ الظَنِّ لازِمٌ ۝ وَهوَ خِلّي وَحَليفي</p>
+
+<p class="alt">وَأَنيسي وَجَليسي ۝ طولَ لَيلي وَنَهاري</p>
+<p class="alt">قَد كَفاني عِلمُ رَبّي ۝ مِن سُؤالي وَاِختِباري</p>
+
+<p>حاجَةً في النَفسِ رَبّي ۝ فَاِقضِها يا خَيرَ قاضي</p>
+<p>وَأَرِح سِرّي وَقَلبي ۝ مِن لَظاها وَالشَواظِ</p>
+
+<p class="alt">في سُرورٍ وَحُبورِ ۝ وَإِذا ما كُنتَ راضي</p>
+<p class="alt">فَالهَنا وَالبَسطُ حالي ۝ وَشِعاري وَدِثاري</p>
+
+<p>قَد كَفاني عِلمُ رَبّي ۝ مِن سُؤالي وَاِختِياري</p>
+
+
+
+
+
+</body>
+</html>
