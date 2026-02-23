@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وديلي سلامي</title>
+  <link rel="icon" type="image/png" href="/images/logo.ico" sizes="32x32">
+  <script>
+    const isRoom = new URLSearchParams(location.search).has('room');
+    document.write(
+      `<link rel="stylesheet" href="${isRoom ? '../style-admin.css' : '../style.css'}">`
+    );
+  </script>
+
+  <!-- Icons & fonts -->
+  <link rel="icon" href="/images/logo.ico">
+
+  <!-- Small critical CSS only -->
+  <style>
+    body { margin: 0; }
+    .page-layout { min-height: 100vh; }
+  </style>
+</head>
+
+<body>
+    <script src="../main.js" defer></script>
+  <div class="page-layout">
+    <nav class="nav-pane" id="navPane">
+      <input type="text" id="searchInput" placeholder="🔍 Search" />
+      <div id="tagFilterContainer"></div>
+      <ul id="poemList"></ul>
+    </nav>
+<div class="container" data-poem-id="1" data-disable-chorus="فقعث">
+      <div class="page-controls-bar">
+        <div class="page-controls-left">
+          <button id="translationToggle" class="button">🌐</button>
+          <button id="transliterationToggle" class="button">🔤</button>
+          <button id="shareButton" class="button">📤</button>
+          <div id="shareMenu">
+            <button id="copyLinkButton" class="button">نسخ الرابط</button>
+            <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
+            <button id="telegramShareButton" class="button">المشاركة على تيليجرام</button>
+          </div>
+        </div>
+        <div class="page-controls-right">
+          <button onclick="changeFontSize(1)" class="button">+</button>
+          <button onclick="changeFontSize(-1)" class="button">-</button>
+          <button id="darkModeToggle" class="button">🌓</button>
+        </div>
+      </div>
+      <h1>وديلي سلامي</h1>
+
+      <!-- Chorus Box -->
+      <div class="chorus-box">
+        <p>قَد كَفاني عِلمُ رَبّي ۝ مِن سُؤالي وَاِختِياري</p>
+        <p>فَدُعائي وَاِبتِهالي ۝ شاهِدٌ لي بِاِفتِقاري</p>
+      </div>
+
+      <!-- Poem Input -->
+<p>وديلى سلامى يا رايح للحرم ۝  وادعيلى وسلملى على هادى الأمم</p>
+<p>أنظر للكعبه يا محلاها ۝ نور وجلال يغشاها</p>
+
+<p class="alt">يحرسها ربى ويرعاها ۝ اذكرنى أمامها وادعيلى</p>
+<p class="alt">يا ساعى بهمه من الصفه للمروه ۝ يا شارب من زمزم اتذكرنى بدعوة</p>
+
+<p>يا طالع على جبل الرحمة يا ماشى فى وسط الزحمه ۝ اطلب من مولاك الرحمه واذكرنى امامها وادعيلى</p>
+<p>وديلى سلامى يا رايح للحرم ۝ وادعيلى وسلملى على هادى الأمم</p>
+
+<p class="alt">أنظر للكـعبه يا محلاها ۝ نور وجلال يغشاها</p>
+<p class="alt">يحرسها ربى ويرعاها ۝ اذكرنى أمامها وادعيلى</p>
+
+<p>هنيئاً هنيئاً يا رايح للهادى ۝ غرام شغلنى ملاكٌ لفؤادى</p>
+<p>ادخل من باب السلام ۝ بتأدب واحترامى</p>
+
+<p class="alt">سلم على طه التهامي ۝ واسأله شفاعه وادعيلى</p>
+
+
+
+
+
+</body>
+</html>
