@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>كلما قلتُ بقربي</title>
+  <link rel="icon" type="image/png" href="/images/logo.ico" sizes="32x32">
+  <script>
+    const isRoom = new URLSearchParams(location.search).has('room');
+    document.write(
+      `<link rel="stylesheet" href="${isRoom ? '../style-admin.css' : '../style.css'}">`
+    );
+  </script>
+
+  <!-- Icons & fonts -->
+  <link rel="icon" href="/images/logo.ico">
+
+  <!-- Small critical CSS only -->
+  <style>
+    body { margin: 0; }
+    .page-layout { min-height: 100vh; }
+  </style>
+</head>
+
+<body>
+    <script src="../main.js" defer></script>
+  <div class="page-layout">
+    <nav class="nav-pane" id="navPane">
+      <input type="text" id="searchInput" placeholder="🔍 Search" />
+      <div id="tagFilterContainer"></div>
+      <ul id="poemList"></ul>
+    </nav>
+<div class="container" data-poem-id="1" data-disable-chorus="true">
+      <div class="page-controls-bar">
+        <div class="page-controls-left">
+          <button id="translationToggle" class="button">🌐</button>
+          <button id="transliterationToggle" class="button">🔤</button>
+          <button id="shareButton" class="button">📤</button>
+          <div id="shareMenu">
+            <button id="copyLinkButton" class="button">نسخ الرابط</button>
+            <button id="whatsappShareButton" class="button">المشاركة على واتساب</button>
+            <button id="telegramShareButton" class="button">المشاركة على تيليجرام</button>
+          </div>
+        </div>
+        <div class="page-controls-right">
+          <button onclick="changeFontSize(1)" class="button">+</button>
+          <button onclick="changeFontSize(-1)" class="button">-</button>
+          <button id="darkModeToggle" class="button">🌓</button>
+        </div>
+      </div>
+      <h1>كلما قلتُ بقربي</h1>
+
+      <!-- Chorus Box -->
+      <div class="chorus-box">
+<p>كلما قلتُ بقربي ۝  تنطفي نيرانُ قلبي</p>
+<p>زادني الوصلُ لهيبا ۝  هكذا حالْ المحبِ</p>
+
+<p class="alt">لا بوصلي أتسلى ۝  لا ولا بالهجر أنسي</p>
+<p class="alt">ليس للعشق دواءٌ ۝  فاحتسبْ عَقلا ونفسا</p>
+
+<p>إِنني أسلمتُ أمري ۝  في الهوى معنى وحسّا</p>
+<p>ما بقى إِلا التفاني ۝  حبذا في الحب نحبي</p>
+
+<p class="alt">إِنني بالموت راضِ ۝  هكذا حالُ المحبُ</p>
+<p class="alt">يا حبيبي بحياتكْ ۝  بحياتك يا حبيبي</p>
+
+<p>رِقْ لي وانظر لحالي ۝  إِنتَ أدرى بالذي بي</p>
+<p>أنت دائي ودوائي ۝  فتلطفْ يا طبيبي</p>
+
+<p class="alt">إِن يكنْ يُرْضكَ قتلي ۝  فاجعلْ القتلَ بقربي</p>
+<p class="alt">إنني بالوصِل أفنى ۝  هكذا حالُ المحب</p>
+
+<p>قد سلبتم ودادي ۝  يا مِلاحَ الحي نفسي</p>
+<p>إِنما يُسبى فؤادي ۝  غير تالفي وأنسي</p>
+
+<p class="alt">فبهذا زاد عشقاً ۝   ورضى بالعشِق صحبي</p>
+<p class="alt">وتفانينا جميعا ۝  هكذا حالُ المحبِ</p>
+
+<p>أنت في كلِ جميلْ ۝  وجمالي يا مطاعْ</p>
+<p>قد تجليتَ لقلبي ۝  مسفراً دون قناعْ</p>
+
+<p class="alt">وعلى عشقِ الجمالْ ۝  طبعَ الله طباعْ</p>
+<p class="alt">آه يا تمزيقَ قلبي ۝  آه يا قتلي وسلبي</p>
+
+<p>متُ من لطفِ الشمائل ۝  هكذا حالُ المحبِ</p>
+<p>كلُ صبِّ مات وجداً ۝  يشتكي حَرّ الدلالْ</p>
+
+<p class="alt">وأنا بالعشقِ وحدي ۝  نشتكي بردَ الوصالْ</p>
+<p class="alt">ناسَب اللطفُ وجودي ۝  فتفانى بالجمال</p>
+
+<p>عشتُ طولَ الدهر فاني ۝  مستهامَ العقل مسبي</p>
+<p>طيبَ العيشِ خليعاً ۝  هكذا حال المحبِ</p>
+
+
+
+
+
+</body>
+</html>
