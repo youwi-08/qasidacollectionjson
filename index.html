@@ -531,7 +531,35 @@
     .dark-mode .user-dropdown-divider {
       background-color: #444;
     }
-  </style>
+</style>
+  footer {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto 10px auto;
+    padding: 15px 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  footer a {
+    color: #256328;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: 500;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  .dark-mode footer {
+    color: #aaa;
+  }
+
+  .dark-mode footer a {
+    color: #53A2A9;
+  }
 </head>
 <body>
   <div class="header-container">
@@ -1154,4 +1182,11 @@ createRoomBtn.addEventListener('click', async () => {
     });
 
   </script>
+</script>
+  <footer>
+    <span>© Melodies of Imān</span>
+    <br>
+    <a href="/legal.html">Legal</a>
+    <a href="/bugtracker.html">Bug Tracker</a>
+  </footer>
 </body></html>
